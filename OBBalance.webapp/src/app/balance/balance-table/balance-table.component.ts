@@ -26,4 +26,8 @@ export class BalanceTableComponent implements OnInit {
   ngOnInit() {
   }
 
+  search(value) {
+    let filtered = this.data.filter(p => p.name.startsWith(value));
+    this._dataSource = new MatTableDataSource(filtered);
+  }
 }

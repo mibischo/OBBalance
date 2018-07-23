@@ -161,7 +161,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-table #table [dataSource]=\"_dataSource\" matSort>\n        \n  <!--- Note that these columns can be defined in any order.\n  The actual rendered columns are set as a property on the row definition\" -->\n\n  <ng-container matColumnDef=\"name\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header class=\"name-column\"> <b>Name</b> </mat-header-cell>\n    <mat-cell *matCellDef=\"let row\" class=\"name-column\"> {{row.name}} </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"balance\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header class=\"balance-column\"> <b>Balance</b> </mat-header-cell>\n    <mat-cell *matCellDef=\"let row\" class=\"balance-column\"> {{row.balance }} </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"paid\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header class=\"paid-column\"> <b>Paid</b> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"paid-column\"> {{row.paid }} </mat-cell>\n    </ng-container>\n\n  <ng-container matColumnDef=\"owed\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header class=\"owed-column\"> <b>Owed</b> </mat-header-cell>\n    <mat-cell *matCellDef=\"let row\" class=\"owed-column\"> {{row.owed}} </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n  <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n</mat-table>"
+module.exports = "\n<mat-form-field style=\"margin-left: auto; margin-right: auto; padding: 8px; width: 100%;\">\n  <input #searchstring matInput (keyup)=\"search(searchstring.value)\" placeholder=\"Search\">\n</mat-form-field>\n\n<div fxLayout=\"row\" class=\"fxClass-all mat-elevation-z2\" style=\"margin: 8px\">\n   \n  <mat-table #table [dataSource]=\"_dataSource\">\n          \n    <!--- Note that these columns can be defined in any order.\n    The actual rendered columns are set as a property on the row definition\" -->\n\n    <ng-container matColumnDef=\"name\">\n      <mat-header-cell *matHeaderCellDef class=\"name-column\"> <b>Name</b> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"name-column\"> {{row.name}} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"balance\">\n      <mat-header-cell *matHeaderCellDef class=\"balance-column\"> <b>Balance</b> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"balance-column\"> {{row.balance | number:'':'en' }} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"paid\">\n        <mat-header-cell *matHeaderCellDef class=\"paid-column\"> <b>Paid</b> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"paid-column\"> {{row.paid | number:'':'en' }} </mat-cell>\n      </ng-container>\n\n    <ng-container matColumnDef=\"owed\">\n      <mat-header-cell *matHeaderCellDef class=\"owed-column\"> <b>Owed</b> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"owed-column\"> {{row.owed | number:'':'en'}} </mat-cell>\n    </ng-container>\n\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n  </mat-table>\n</div>"
 
 /***/ }),
 
@@ -207,6 +207,10 @@ var BalanceTableComponent = /** @class */ (function () {
     });
     ;
     BalanceTableComponent.prototype.ngOnInit = function () {
+    };
+    BalanceTableComponent.prototype.search = function (value) {
+        var filtered = this.data.filter(function (p) { return p.name.startsWith(value); });
+        this._dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"](filtered);
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('dataSource'),

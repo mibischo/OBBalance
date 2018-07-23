@@ -51,9 +51,9 @@ module.exports = {
                                 if (row[0] != '') {
                                     let player = {
                                         name: row[0],
-                                        balance: parseInt(row[1].replace(',', '')),
-                                        paid: parseInt(row[2].replace(',', '')),
-                                        owed: parseInt(row[3].replace(',', ''))
+                                        balance: parseInt(row[1].replace(/,/g, '')),
+                                        paid: parseInt(row[2].replace(/,/g, '')),
+                                        owed: parseInt(row[3].replace(/,/g, ''))
                                     };
                                     data.push(player);
                                 }
