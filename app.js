@@ -1,5 +1,6 @@
 var express = require('express');
 const bodyParser = require('body-parser');
+const sheetsapi = require('./OBBalance.server/sheetsapi/sheetsapi.js');
 
 // mongo example: https://www.callicoder.com/node-js-express-mongodb-restful-crud-api-tutorial/
 
@@ -13,6 +14,12 @@ app.use(express.static('wwwroot'));
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
+
+app.get('/api/balance', (req, res) => {
+    sheetsapi.getBalanceData().then(function (result) {
+        res.send(result);
+    });
+});
 
 // starting the server
 app.listen(port, () => {

@@ -1,0 +1,28 @@
+<mat-table #table [dataSource]="_dataSource" matSort>
+        
+  <!--- Note that these columns can be defined in any order.
+  The actual rendered columns are set as a property on the row definition" -->
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="name-column"> <b>Name</b> </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="name-column"> {{row.name}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="balance">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="balance-column"> <b>Balance</b> </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="balance-column"> {{row.balance }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="paid">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="paid-column"> <b>Paid</b> </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="paid-column"> {{row.paid }} </mat-cell>
+    </ng-container>
+
+  <ng-container matColumnDef="owed">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="owed-column"> <b>Owed</b> </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="owed-column"> {{row.owed}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
