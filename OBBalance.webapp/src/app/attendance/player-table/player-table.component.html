@@ -1,0 +1,27 @@
+<div fxLayout="row">
+  <mat-form-field fxFlex class="my-form-field">
+    <input #searchstring matInput (keyup)="search(searchstring.value)" placeholder="Search">
+  </mat-form-field>
+</div>
+<div fxLayout="row">
+  <div fxFlex class="mat-elevation-z2" style="margin: 16px 8px 16px 16px;">    
+    <mat-table #table [dataSource]="_dataSource">
+            
+      <!--- Note that these columns can be defined in any order.
+      The actual rendered columns are set as a property on the row definition" -->
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef class="name-column"> <h2>Name</h2> </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="name-column"> {{row.player}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="nrRaids">
+        <mat-header-cell *matHeaderCellDef class="nrRaids-column"> <h2>Raids</h2> </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="nrRaids-column"> <span *ngIf="row.raids != null">{{row.raids.length }}</span> </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row (click)="selectPlayer(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

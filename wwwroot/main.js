@@ -125,12 +125,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _utils_material_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/material.module */ "./src/app/utils/material.module.ts");
-/* harmony import */ var _routing_app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./routing/app.routing.module */ "./src/app/routing/app.routing.module.ts");
-/* harmony import */ var _balance_balance_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./balance/balance.component */ "./src/app/balance/balance.component.ts");
-/* harmony import */ var _balance_balance_table_balance_table_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./balance/balance-table/balance-table.component */ "./src/app/balance/balance-table/balance-table.component.ts");
-/* harmony import */ var _attendance_attendance_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./attendance/attendance.component */ "./src/app/attendance/attendance.component.ts");
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _utils_material_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/material.module */ "./src/app/utils/material.module.ts");
+/* harmony import */ var _routing_app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./routing/app.routing.module */ "./src/app/routing/app.routing.module.ts");
+/* harmony import */ var _balance_balance_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./balance/balance.component */ "./src/app/balance/balance.component.ts");
+/* harmony import */ var _balance_balance_table_balance_table_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./balance/balance-table/balance-table.component */ "./src/app/balance/balance-table/balance-table.component.ts");
+/* harmony import */ var _attendance_attendance_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./attendance/attendance.component */ "./src/app/attendance/attendance.component.ts");
+/* harmony import */ var _attendance_player_table_player_table_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./attendance/player-table/player-table.component */ "./src/app/attendance/player-table/player-table.component.ts");
+/* harmony import */ var _attendance_player_attendance_player_attendance_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./attendance/player-attendance/player-attendance.component */ "./src/app/attendance/player-attendance/player-attendance.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -147,26 +150,32 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-                _balance_balance_component__WEBPACK_IMPORTED_MODULE_7__["BalanceComponent"],
-                _balance_balance_table_balance_table_component__WEBPACK_IMPORTED_MODULE_8__["BalanceTableComponent"],
-                _attendance_attendance_component__WEBPACK_IMPORTED_MODULE_9__["AttendanceComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
+                _balance_balance_component__WEBPACK_IMPORTED_MODULE_8__["BalanceComponent"],
+                _balance_balance_table_balance_table_component__WEBPACK_IMPORTED_MODULE_9__["BalanceTableComponent"],
+                _attendance_attendance_component__WEBPACK_IMPORTED_MODULE_10__["AttendanceComponent"],
+                _attendance_player_table_player_table_component__WEBPACK_IMPORTED_MODULE_11__["PlayerTableComponent"],
+                _attendance_player_attendance_player_attendance_component__WEBPACK_IMPORTED_MODULE_12__["PlayerAttendanceComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_2__["BrowserAnimationsModule"],
                 _angular_http__WEBPACK_IMPORTED_MODULE_3__["HttpModule"],
-                _utils_material_module__WEBPACK_IMPORTED_MODULE_5__["MyMaterialModule"],
-                _routing_app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"]
+                _utils_material_module__WEBPACK_IMPORTED_MODULE_6__["MyMaterialModule"],
+                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_4__["FlexLayoutModule"],
+                _routing_app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"]
             ],
             providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -194,7 +203,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  attendance works!\n</p>\n"
+module.exports = "<div fxLayout=\"row\" style=\"height: 95vh;\">\n  <div fxFlex=\"40\"><app-player-table [dataSource]=\"attendance | async\" (onSelect)=\"onPlayerSelect($event)\"></app-player-table></div>\n  <div fxFlex=\"60\"><app-player-attendance *ngIf=\"selectedPlayer != null\" [dataSource]=\"selectedPlayer.raids\" [playerName]=\"selectedPlayer.player\"></app-player-attendance></div>\n</div>"
 
 /***/ }),
 
@@ -224,8 +233,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var AttendanceComponent = /** @class */ (function () {
     function AttendanceComponent(attendanceService) {
         this.attendanceService = attendanceService;
+        this.selectedPlayer = null;
     }
     AttendanceComponent.prototype.ngOnInit = function () {
+        this.attendance = this.attendanceService.get();
+    };
+    AttendanceComponent.prototype.onPlayerSelect = function (player) {
+        this.selectedPlayer = player;
     };
     AttendanceComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -236,6 +250,203 @@ var AttendanceComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_services_attendance_service__WEBPACK_IMPORTED_MODULE_1__["AttendanceService"]])
     ], AttendanceComponent);
     return AttendanceComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/attendance/player-attendance/player-attendance.component.css":
+/*!******************************************************************************!*\
+  !*** ./src/app/attendance/player-attendance/player-attendance.component.css ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".player-name {\r\n    font: 500 20px/32px Roboto,\"Helvetica Neue\",sans-serif;\r\n    margin-left: 32px;\r\n    margin-top: 48px;\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/attendance/player-attendance/player-attendance.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/attendance/player-attendance/player-attendance.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"row\">\n  <div style=\"height: 97.5px; line-height: 97.5px;\">\n    <h2 class=\"player-name\">{{_playerName}}</h2>\n  </div>\n</div>\n<div fxLayout=\"row\">\n  <div fxFlex class=\"mat-elevation-z2\" style=\"margin: 16px 8px 16px 16px;\">    \n    <mat-table fxFlex=\"100\" #table [dataSource]=\"_dataSource\">\n        \n      <!--- Note that these columns can be defined in any order.\n      The actual rendered columns are set as a property on the row definition\" -->\n  \n      <ng-container matColumnDef=\"name\">\n        <mat-header-cell *matHeaderCellDef class=\"name-column\"> <h2>Name</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"name-column\"> {{row.name}} </mat-cell>\n      </ng-container>\n  \n      <ng-container matColumnDef=\"pot\">\n        <mat-header-cell *matHeaderCellDef class=\"pot-column\"> <h2>Pot</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"pot-column\"> {{row.pot | number:'':'en' }} </mat-cell>\n      </ng-container>\n  \n      <ng-container matColumnDef=\"boosters\">\n          <mat-header-cell *matHeaderCellDef class=\"boosters-column\"> <h2>Boosters</h2> </mat-header-cell>\n          <mat-cell *matCellDef=\"let row\" class=\"boosters-column\"> {{row.boosters}} </mat-cell>\n        </ng-container>\n  \n      <ng-container matColumnDef=\"quater\">\n        <mat-header-cell *matHeaderCellDef class=\"quater-column\"> <h2>25%</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"quater-column\"> {{row.quater | number:'':'en'}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"raiderCut\">\n        <mat-header-cell *matHeaderCellDef class=\"raiderCut-column\"> <h2>Raider Cut</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"raiderCut-column\"> {{row.raiderCut | number:'':'en'}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"leaderCut\">\n        <mat-header-cell *matHeaderCellDef class=\"leaderCut-column\"> <h2>Leader Cut</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"leaderCut-column\"> {{row.leaderCut | number:'':'en'}} </mat-cell>\n      </ng-container>\n  \n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n      <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    </mat-table>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/attendance/player-attendance/player-attendance.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/attendance/player-attendance/player-attendance.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: PlayerAttendanceComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlayerAttendanceComponent", function() { return PlayerAttendanceComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var PlayerAttendanceComponent = /** @class */ (function () {
+    function PlayerAttendanceComponent() {
+        this._dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"]([]);
+        this.displayedColumns = ['name', 'pot', 'boosters', 'quater', 'raiderCut', 'leaderCut'];
+    }
+    Object.defineProperty(PlayerAttendanceComponent.prototype, "dataSource", {
+        set: function (value) {
+            if (value) {
+                this._dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"](value);
+                this.data = value;
+                // this._dataSource.sort = this.sort;
+                console.log(value);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(PlayerAttendanceComponent.prototype, "playerName", {
+        set: function (value) {
+            if (value) {
+                this._playerName = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    PlayerAttendanceComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('dataSource'),
+        __metadata("design:type", Array),
+        __metadata("design:paramtypes", [Array])
+    ], PlayerAttendanceComponent.prototype, "dataSource", null);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('playerName'),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], PlayerAttendanceComponent.prototype, "playerName", null);
+    PlayerAttendanceComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-player-attendance',
+            template: __webpack_require__(/*! ./player-attendance.component.html */ "./src/app/attendance/player-attendance/player-attendance.component.html"),
+            styles: [__webpack_require__(/*! ./player-attendance.component.css */ "./src/app/attendance/player-attendance/player-attendance.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], PlayerAttendanceComponent);
+    return PlayerAttendanceComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/attendance/player-table/player-table.component.css":
+/*!********************************************************************!*\
+  !*** ./src/app/attendance/player-table/player-table.component.css ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/attendance/player-table/player-table.component.html":
+/*!*********************************************************************!*\
+  !*** ./src/app/attendance/player-table/player-table.component.html ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"row\">\n  <mat-form-field fxFlex class=\"my-form-field\">\n    <input #searchstring matInput (keyup)=\"search(searchstring.value)\" placeholder=\"Search\">\n  </mat-form-field>\n</div>\n<div fxLayout=\"row\">\n  <div fxFlex class=\"mat-elevation-z2\" style=\"margin: 16px 8px 16px 16px;\">    \n    <mat-table #table [dataSource]=\"_dataSource\">\n            \n      <!--- Note that these columns can be defined in any order.\n      The actual rendered columns are set as a property on the row definition\" -->\n\n      <ng-container matColumnDef=\"name\">\n        <mat-header-cell *matHeaderCellDef class=\"name-column\"> <h2>Name</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"name-column\"> {{row.player}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"nrRaids\">\n        <mat-header-cell *matHeaderCellDef class=\"nrRaids-column\"> <h2>Raids</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"nrRaids-column\"> <span *ngIf=\"row.raids != null\">{{row.raids.length }}</span> </mat-cell>\n      </ng-container>\n\n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n      <mat-row (click)=\"selectPlayer(row)\" *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    </mat-table>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/attendance/player-table/player-table.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/attendance/player-table/player-table.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: PlayerTableComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlayerTableComponent", function() { return PlayerTableComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var PlayerTableComponent = /** @class */ (function () {
+    function PlayerTableComponent() {
+        this.onSelect = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this._dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"]([]);
+        this.displayedColumns = ['name', 'nrRaids'];
+    }
+    Object.defineProperty(PlayerTableComponent.prototype, "dataSource", {
+        set: function (value) {
+            if (value) {
+                this._dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"](value);
+                this.data = value;
+                // this._dataSource.sort = this.sort;
+                console.log(value);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    PlayerTableComponent.prototype.ngOnInit = function () {
+    };
+    PlayerTableComponent.prototype.search = function (value) {
+        var filtered = this.data.filter(function (p) { return p.player.toLowerCase().startsWith(value.toLowerCase()); });
+        this._dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"](filtered);
+    };
+    PlayerTableComponent.prototype.selectPlayer = function (player) {
+        this.onSelect.emit(player);
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('dataSource'),
+        __metadata("design:type", Array),
+        __metadata("design:paramtypes", [Array])
+    ], PlayerTableComponent.prototype, "dataSource", null);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('onSelect'),
+        __metadata("design:type", Object)
+    ], PlayerTableComponent.prototype, "onSelect", void 0);
+    PlayerTableComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-player-table',
+            template: __webpack_require__(/*! ./player-table.component.html */ "./src/app/attendance/player-table/player-table.component.html"),
+            styles: [__webpack_require__(/*! ./player-table.component.css */ "./src/app/attendance/player-table/player-table.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], PlayerTableComponent);
+    return PlayerTableComponent;
 }());
 
 
@@ -260,7 +471,7 @@ module.exports = ".mat-header-row {\r\n    position: -webkit-sticky;\r\n    posi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<mat-form-field class=\"my-form-field\">\n  <input #searchstring matInput (keyup)=\"search(searchstring.value)\" placeholder=\"Search\">\n</mat-form-field>\n\n<div fxLayout=\"row\" class=\"fxClass-all mat-elevation-z2\" style=\"margin: 8px\">\n   \n  <mat-table #table [dataSource]=\"_dataSource\">\n          \n    <!--- Note that these columns can be defined in any order.\n    The actual rendered columns are set as a property on the row definition\" -->\n\n    <ng-container matColumnDef=\"name\">\n      <mat-header-cell *matHeaderCellDef class=\"name-column\"> <h2>Name</h2> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"name-column\"> {{row.name}} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"balance\">\n      <mat-header-cell *matHeaderCellDef class=\"balance-column\"> <h2>Balance</h2> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"balance-column\"> {{row.balance | number:'':'en' }} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"paid\">\n        <mat-header-cell *matHeaderCellDef class=\"paid-column\"> <h2>Paid</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"paid-column\"> {{row.paid | number:'':'en' }} </mat-cell>\n      </ng-container>\n\n    <ng-container matColumnDef=\"owed\">\n      <mat-header-cell *matHeaderCellDef class=\"owed-column\"> <h2>Owed</h2> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"owed-column\"> {{row.owed | number:'':'en'}} </mat-cell>\n    </ng-container>\n\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n  </mat-table>\n</div>"
+module.exports = "\n<mat-form-field class=\"my-form-field\">\n  <input #searchstring matInput (keyup)=\"search(searchstring.value)\" placeholder=\"Search\">\n</mat-form-field>\n\n<div fxLayout=\"row\" class=\"mat-elevation-z2\" style=\"margin: 16px\">\n   \n  <mat-table fxFlex=\"100\" #table [dataSource]=\"_dataSource\">\n          \n    <!--- Note that these columns can be defined in any order.\n    The actual rendered columns are set as a property on the row definition\" -->\n\n    <ng-container matColumnDef=\"name\">\n      <mat-header-cell *matHeaderCellDef class=\"name-column\"> <h2>Name</h2> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"name-column\"> {{row.name}} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"balance\">\n      <mat-header-cell *matHeaderCellDef class=\"balance-column\"> <h2>Balance</h2> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"balance-column\"> {{row.balance | number:'':'en' }} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"paid\">\n        <mat-header-cell *matHeaderCellDef class=\"paid-column\"> <h2>Paid</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"paid-column\"> {{row.paid | number:'':'en' }} </mat-cell>\n      </ng-container>\n\n    <ng-container matColumnDef=\"owed\">\n      <mat-header-cell *matHeaderCellDef class=\"owed-column\"> <h2>Owed</h2> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"owed-column\"> {{row.owed | number:'':'en'}} </mat-cell>\n    </ng-container>\n\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n  </mat-table>\n</div>"
 
 /***/ }),
 
@@ -458,6 +669,8 @@ var AppRoutingModule = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AttendanceService", function() { return AttendanceService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -468,14 +681,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var AttendanceService = /** @class */ (function () {
-    function AttendanceService() {
+    function AttendanceService(http) {
+        this.http = http;
     }
+    AttendanceService.prototype.get = function () {
+        return this.http.get('/api/attendance').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+    };
     AttendanceService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"]])
     ], AttendanceService);
     return AttendanceService;
 }());

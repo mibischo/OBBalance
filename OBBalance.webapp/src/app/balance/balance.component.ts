@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class BalanceComponent implements OnInit {
 
-  public balance: Observable<any>;
+  public balance: Observable<any[]>;
 
   constructor(private balanceService: BalanceService) {
 

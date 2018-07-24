@@ -3,9 +3,9 @@
   <input #searchstring matInput (keyup)="search(searchstring.value)" placeholder="Search">
 </mat-form-field>
 
-<div fxLayout="row" class="fxClass-all mat-elevation-z2" style="margin: 8px">
+<div fxLayout="row" class="mat-elevation-z2" style="margin: 16px">
    
-  <mat-table #table [dataSource]="_dataSource">
+  <mat-table fxFlex="100" #table [dataSource]="_dataSource">
           
     <!--- Note that these columns can be defined in any order.
     The actual rendered columns are set as a property on the row definition" -->

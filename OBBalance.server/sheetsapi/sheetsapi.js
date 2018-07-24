@@ -11,12 +11,14 @@ let pkey = a.private_key;
 // let sheet = { // new sheet
 //     spreadsheetId: '1gA3EqP8ALjjdwpNCA3uxXro0g0BlHoKqR4nTxi_IqA0',
 //     balanceSheet: 'Balance!B5:E700',
-//     attendanceSheet: 'OTB!ZU2:ZY415'
+//     raidSheet: 'OTB!ZU2:ZY415',
+//     attendanceSheet: ''
 // };
 let sheet = { // old sheet for dev
     spreadsheetId: '1vH09blVSor23uwzBirvcH54TzmpFUM_Fp7j6xZ7syXg',
     balanceSheet: 'Balance!B5:E700',
-    attendanceSheet: 'OTB!ZU2:ZY415'
+    raidSheet: 'OTB!ZU2:ZY415',
+    attendanceSheet: 'OTB!B4:ZR700'
 };
 
 function authenticate() {
@@ -44,7 +46,8 @@ let balanceData = {
 
 let attendanceData = {
     timestamp: new Date(),
-    raids: {}
+    raids: [],
+    playerAttendance: []
 };
 
 module.exports = {
@@ -108,10 +111,12 @@ module.exports = {
 
                 //Google Sheets API
                 let sheets = google.sheets('v4');
+
+                // get raids
                 sheets.spreadsheets.values.get({
                         auth: jwtClient,
                         spreadsheetId: sheet.spreadsheetId,
-                        range: sheet.attendanceSheet
+                        range: sheet.raidSheet
                     }, 
                     function (err, response) {
                         if (err) {
@@ -138,17 +143,50 @@ module.exports = {
                                             leaderCut: parseFloat(leaderCut[j].replace(/,/g, ''))
                                         };
 
-                                        attendanceData.raids[names[j]] = raid;
+                                        attendanceData.raids[i+j] = raid;
                                     }
                                 }
                             }
 
-                            attendanceData.timestamp = new Date();
-                            resolve(attendanceData.raids);
-                            
+                            // attendanceData.timestamp = new Date();
+                            // resolve(attendanceData.raids);
                         }
                     }
                 );
+
+                // get attendance
+                sheets.spreadsheets.values.get({
+                    auth: jwtClient,
+                    spreadsheetId: sheet.spreadsheetId,
+                    range: sheet.attendanceSheet
+                }, 
+                function (err, response) {
+                    if (err) {
+                        console.log('The API returned an error: ' + err);
+                    } else {
+                        let data = [];
+                        response.data.values.map((row) => {
+                            if (row[0]) {
+                                let playerAttendance = {
+                                    player: row[0],
+                                    raids: []
+                                }
+
+                                for (i=1; i<attendanceData.raids.length; i++) {
+                                    if (row[i]) {
+                                        playerAttendance.raids.push(attendanceData.raids[i]);
+                                    }
+                                }
+
+                                attendanceData.playerAttendance.push(playerAttendance);
+                            }
+                        });
+
+                        attendanceData.timestamp = new Date();
+                        resolve(attendanceData.playerAttendance);
+                    }
+                }
+            );
             } else {
                 resolve(attendanceData.raids);
             }
