@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".progress-bar {\r\n    width: 100%;\r\n    margin-top: 8px;\r\n    margin-bottom: 8px;\r\n}\r\n\r\n.header-navigation {\r\n    display: table-row;\r\n    margin-right:auto;\r\n    align-items:left;\r\n    padding-top: 0 !important;\r\n    height: 100%;\r\n    margin-left: 50px;\r\n}\r\n\r\n.nav-link {\r\n    display: table-cell !important;\r\n    list-style-type: none;\r\n    vertical-align: middle;\r\n    line-height: 100%;\r\n    font-weight: 600;\r\n    font-size: 1.5rem !important;\r\n    height: 64px;\r\n    padding-left: 16px;\r\n    padding-right: 16px;\r\n    text-decoration: none;\r\n    color: white;\r\n}\r\n\r\n.nav-link-active {\r\n    color: #f6680e;\r\n}"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar class=\"mat-elevation-z6\" color=\"primary\">\n  <h2>Oblivion Boost Balance</h2>\n  <mat-list class=\"header-navigation\">\n    <!-- <a class=\"nav-link\" routerLinkActive=\"nav-link-active\">Anschreiben</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\">Testraid</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\">wurde Abgelehnt</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\">hat Abgelehnt</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\">Alle</a> -->\n  </mat-list>\n</mat-toolbar>\n<router-outlet></router-outlet>"
+module.exports = "<mat-toolbar class=\"mat-elevation-z6\" color=\"primary\">\n  <h1>Oblivion Boost</h1>\n  <mat-list class=\"header-navigation\">\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\" routerLink=\"/balance\" >Balance</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\" routerLink=\"/attendance\">Attendance</a>\n    <!---<a class=\"nav-link\" routerLinkActive=\"nav-link-active\">wurde Abgelehnt</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\">hat Abgelehnt</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\">Alle</a> -->\n  </mat-list>\n</mat-toolbar>\n<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -150,7 +150,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".mat-header-row {\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background-color: inherit;\r\n}"
 
 /***/ }),
 
@@ -161,7 +161,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<mat-form-field style=\"margin-left: auto; margin-right: auto; padding: 8px; width: 100%;\">\n  <input #searchstring matInput (keyup)=\"search(searchstring.value)\" placeholder=\"Search\">\n</mat-form-field>\n\n<div fxLayout=\"row\" class=\"fxClass-all mat-elevation-z2\" style=\"margin: 8px\">\n   \n  <mat-table #table [dataSource]=\"_dataSource\">\n          \n    <!--- Note that these columns can be defined in any order.\n    The actual rendered columns are set as a property on the row definition\" -->\n\n    <ng-container matColumnDef=\"name\">\n      <mat-header-cell *matHeaderCellDef class=\"name-column\"> <b>Name</b> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"name-column\"> {{row.name}} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"balance\">\n      <mat-header-cell *matHeaderCellDef class=\"balance-column\"> <b>Balance</b> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"balance-column\"> {{row.balance | number:'':'en' }} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"paid\">\n        <mat-header-cell *matHeaderCellDef class=\"paid-column\"> <b>Paid</b> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"paid-column\"> {{row.paid | number:'':'en' }} </mat-cell>\n      </ng-container>\n\n    <ng-container matColumnDef=\"owed\">\n      <mat-header-cell *matHeaderCellDef class=\"owed-column\"> <b>Owed</b> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"owed-column\"> {{row.owed | number:'':'en'}} </mat-cell>\n    </ng-container>\n\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n  </mat-table>\n</div>"
+module.exports = "\n<mat-form-field class=\"my-form-field\">\n  <input #searchstring matInput (keyup)=\"search(searchstring.value)\" placeholder=\"Search\">\n</mat-form-field>\n\n<div fxLayout=\"row\" class=\"fxClass-all mat-elevation-z2\" style=\"margin: 8px\">\n   \n  <mat-table #table [dataSource]=\"_dataSource\">\n          \n    <!--- Note that these columns can be defined in any order.\n    The actual rendered columns are set as a property on the row definition\" -->\n\n    <ng-container matColumnDef=\"name\">\n      <mat-header-cell *matHeaderCellDef class=\"name-column\"> <h2>Name</h2> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"name-column\"> {{row.name}} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"balance\">\n      <mat-header-cell *matHeaderCellDef class=\"balance-column\"> <h2>Balance</h2> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"balance-column\"> {{row.balance | number:'':'en' }} </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"paid\">\n        <mat-header-cell *matHeaderCellDef class=\"paid-column\"> <h2>Paid</h2> </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" class=\"paid-column\"> {{row.paid | number:'':'en' }} </mat-cell>\n      </ng-container>\n\n    <ng-container matColumnDef=\"owed\">\n      <mat-header-cell *matHeaderCellDef class=\"owed-column\"> <h2>Owed</h2> </mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" class=\"owed-column\"> {{row.owed | number:'':'en'}} </mat-cell>\n    </ng-container>\n\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n  </mat-table>\n</div>"
 
 /***/ }),
 
@@ -209,7 +209,7 @@ var BalanceTableComponent = /** @class */ (function () {
     BalanceTableComponent.prototype.ngOnInit = function () {
     };
     BalanceTableComponent.prototype.search = function (value) {
-        var filtered = this.data.filter(function (p) { return p.name.startsWith(value); });
+        var filtered = this.data.filter(function (p) { return p.name.toLowerCase().startsWith(value.toLowerCase()); });
         this._dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"](filtered);
     };
     __decorate([

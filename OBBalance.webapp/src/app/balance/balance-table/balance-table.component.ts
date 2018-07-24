@@ -27,7 +27,7 @@ export class BalanceTableComponent implements OnInit {
   }
 
   search(value) {
-    let filtered = this.data.filter(p => p.name.startsWith(value));
+    let filtered = this.data.filter(p => p.name.toLowerCase().startsWith(value.toLowerCase()));
     this._dataSource = new MatTableDataSource(filtered);
   }
 }

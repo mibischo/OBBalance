@@ -1,14 +1,15 @@
 const { google } = require('googleapis');
-let privatekey = require("../config/pkey.json");
 let Promise = require("promise");
 
 let isAuthenticated = false;
 let jwtClient;
+let email = process.env.EMAIL;
+let pkey = process.env.PKEY;
 
 function authenticate() {
-    jwtClient = new google.auth.JWT(privatekey.client_email,
+    jwtClient = new google.auth.JWT(email,
         null,
-        privatekey.private_key,
+        pkey,
         ['https://www.googleapis.com/auth/spreadsheets']);
 
     jwtClient.authorize(function (err, tokens) {

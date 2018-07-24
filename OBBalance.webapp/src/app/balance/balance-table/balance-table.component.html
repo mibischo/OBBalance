@@ -1,5 +1,5 @@
 
-<mat-form-field style="margin-left: auto; margin-right: auto; padding: 8px; width: 100%;">
+<mat-form-field class="my-form-field">
   <input #searchstring matInput (keyup)="search(searchstring.value)" placeholder="Search">
 </mat-form-field>
 
@@ -11,22 +11,22 @@
     The actual rendered columns are set as a property on the row definition" -->
 
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef class="name-column"> <b>Name</b> </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="name-column"> <h2>Name</h2> </mat-header-cell>
       <mat-cell *matCellDef="let row" class="name-column"> {{row.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="balance">
-      <mat-header-cell *matHeaderCellDef class="balance-column"> <b>Balance</b> </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="balance-column"> <h2>Balance</h2> </mat-header-cell>
       <mat-cell *matCellDef="let row" class="balance-column"> {{row.balance | number:'':'en' }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="paid">
-        <mat-header-cell *matHeaderCellDef class="paid-column"> <b>Paid</b> </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="paid-column"> <h2>Paid</h2> </mat-header-cell>
         <mat-cell *matCellDef="let row" class="paid-column"> {{row.paid | number:'':'en' }} </mat-cell>
       </ng-container>
 
     <ng-container matColumnDef="owed">
-      <mat-header-cell *matHeaderCellDef class="owed-column"> <b>Owed</b> </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="owed-column"> <h2>Owed</h2> </mat-header-cell>
       <mat-cell *matCellDef="let row" class="owed-column"> {{row.owed | number:'':'en'}} </mat-cell>
     </ng-container>
 
