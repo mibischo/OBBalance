@@ -4,10 +4,10 @@ let a = require("../config/pkey.json");
 
 let isAuthenticated = false;
 let jwtClient;
-// let email = process.env.EMAIL;
-// let pkey = process.env.PKEY;
-let email = a.client_email;
-let pkey = a.private_key;
+let email = process.env.EMAIL;
+let pkey = process.env.PKEY;
+// let email = a.client_email;
+// let pkey = a.private_key;
 
 function authenticate() {
     jwtClient = new google.auth.JWT(email,
