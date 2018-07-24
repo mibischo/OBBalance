@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".progress-bar {\r\n    width: 100%;\r\n    margin-top: 8px;\r\n    margin-bottom: 8px;\r\n}\r\n\r\n.header-navigation {\r\n    display: table-row;\r\n    margin-right:auto;\r\n    align-items:left;\r\n    padding-top: 0 !important;\r\n    height: 100%;\r\n    margin-left: 50px;\r\n}\r\n\r\n.nav-link {\r\n    display: table-cell !important;\r\n    list-style-type: none;\r\n    vertical-align: middle;\r\n    line-height: 100%;\r\n    font-weight: 600;\r\n    font-size: 1.5rem !important;\r\n    height: 64px;\r\n    padding-left: 16px;\r\n    padding-right: 16px;\r\n    text-decoration: none;\r\n    color: white;\r\n}\r\n\r\n.nav-link-active {\r\n    color: #f6680e;\r\n}"
+module.exports = ".progress-bar {\r\n    width: 100%;\r\n    margin-top: 8px;\r\n    margin-bottom: 8px;\r\n}\r\n\r\n.navigation {\r\n    margin-top: 10px;\r\n}\r\n\r\n.nav-link {\r\n    color: #000;\r\n    font: 500 20px/32px Roboto,\"Helvetica Neue\",sans-serif;\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    margin-left: 10px;\r\n}\r\n\r\n.nav-link mat-icon {\r\n    margin-right: 10px;\r\n    position: relative;\r\n    top: 4px;\r\n}\r\n\r\n.nav-link-active {\r\n    color: #007bfd;\r\n    font: 500 20px/32px Roboto,\"Helvetica Neue\",sans-serif;\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    margin-left: 10px;\r\n}\r\n\r\n.nav-link-active mat-icon {\r\n    margin-right: 10px;\r\n    position: relative;\r\n    top: 4px;\r\n}\r\n\r\n.sidenav-container {\r\n}\r\n\r\n.sidenav {\r\n    width: 350px;\r\n}\r\n\r\n.sidenave-button {\r\n    margin-right: 10px;\r\n}\r\n\r\n.sidenav-toolbar {\r\n    background-color: #3f51b5;\r\n    display:flex;\r\n    align-items:center;\r\n    width:350px;\r\n    height:64px;\r\n}\r\n\r\n.sidenav-toolbar h1 {\r\n    font: 500 20px/32px Roboto,\"Helvetica Neue\",sans-serif;\r\n    margin: 0;\r\n    color: #fff;\r\n    margin-left: 26px;\r\n}\r\n\r\n.main-content {\r\n    box-shadow: inset 0 6px 10px 0 rgba(0,0,0,.14);\r\n}"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = ".progress-bar {\r\n    width: 100%;\r\n    margin-top: 8px;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar class=\"mat-elevation-z6\" color=\"primary\">\n  <h1>Oblivion Boost</h1>\n  <mat-list class=\"header-navigation\">\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\" routerLink=\"/balance\" >Balance</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\" routerLink=\"/attendance\">Attendance</a>\n    <!---<a class=\"nav-link\" routerLinkActive=\"nav-link-active\">wurde Abgelehnt</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\">hat Abgelehnt</a>\n    <a class=\"nav-link\" routerLinkActive=\"nav-link-active\">Alle</a> -->\n  </mat-list>\n</mat-toolbar>\n<router-outlet></router-outlet>"
+module.exports = "\n\n<mat-sidenav-container class=\"sidenav-container\" fullscreen>\n  \n  <mat-sidenav class=\"sidenav\" #sidenav [opened]=\"screenWidth > 840\" [mode]=\"(screenWidth > 840) ? 'side' : 'over'\">\n    <div class=\"sidenav-toolbar\">\n        <h1>Oblivion Boost</h1>\n    </div>\n    <mat-list class=\"navigation\">\n      <mat-list-item>\n        <a class=\"nav-link\" routerLinkActive=\"nav-link-active\" routerLink=\"/balance\" >Balance</a>\n      </mat-list-item>\n      <mat-list-item>\n        <a class=\"nav-link\" routerLinkActive=\"nav-link-active\" routerLink=\"/attendance\">Attendance</a>\n      </mat-list-item>\n    </mat-list>\n  </mat-sidenav>\n\n  <mat-toolbar class=\"mat-elevation-z6\" color=\"primary\">\n    <div class=\"sidenave-button\" [ngStyle]=\"{'display' : (screenWidth > 840) ? 'none' : 'block'}\">\n      <button mat-icon-button (click)=\"sidenav.open()\">\n        <mat-icon>menu</mat-icon>\n      </button>\n    </div>\n    <h1>{{title}}</h1>\n  </mat-toolbar>\n\n  <div class=\"main-content\">\n    <router-outlet></router-outlet>\n  </div>\n\n</mat-sidenav-container>"
 
 /***/ }),
 
@@ -56,23 +56,53 @@ module.exports = "<mat-toolbar class=\"mat-elevation-z6\" color=\"primary\">\n  
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
-        this.title = 'app';
+    function AppComponent(router, activatedRoute) {
+        var _this = this;
+        this.router = router;
+        this.activatedRoute = activatedRoute;
+        this.title = 'Balance';
+        // set screenWidth on page load
+        this.screenWidth = window.innerWidth;
+        window.onresize = function () {
+            // set screenWidth on screen size change
+            _this.screenWidth = window.innerWidth;
+        };
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["filter"])(function (event) { return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]; }))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function () { return _this.activatedRoute; }))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (route) {
+            while (route.firstChild)
+                route = route.firstChild;
+            return route;
+        }))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["filter"])(function (route) { return route.outlet === 'primary'; }))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["mergeMap"])(function (route) { return route.data; }))
+            .subscribe(function (event) { return _this.title = event['title']; });
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -100,12 +130,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routing_app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./routing/app.routing.module */ "./src/app/routing/app.routing.module.ts");
 /* harmony import */ var _balance_balance_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./balance/balance.component */ "./src/app/balance/balance.component.ts");
 /* harmony import */ var _balance_balance_table_balance_table_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./balance/balance-table/balance-table.component */ "./src/app/balance/balance-table/balance-table.component.ts");
+/* harmony import */ var _attendance_attendance_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./attendance/attendance.component */ "./src/app/attendance/attendance.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -123,7 +155,8 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
                 _balance_balance_component__WEBPACK_IMPORTED_MODULE_7__["BalanceComponent"],
-                _balance_balance_table_balance_table_component__WEBPACK_IMPORTED_MODULE_8__["BalanceTableComponent"]
+                _balance_balance_table_balance_table_component__WEBPACK_IMPORTED_MODULE_8__["BalanceTableComponent"],
+                _attendance_attendance_component__WEBPACK_IMPORTED_MODULE_9__["AttendanceComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -137,6 +170,72 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/attendance/attendance.component.css":
+/*!*****************************************************!*\
+  !*** ./src/app/attendance/attendance.component.css ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/attendance/attendance.component.html":
+/*!******************************************************!*\
+  !*** ./src/app/attendance/attendance.component.html ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  attendance works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/attendance/attendance.component.ts":
+/*!****************************************************!*\
+  !*** ./src/app/attendance/attendance.component.ts ***!
+  \****************************************************/
+/*! exports provided: AttendanceComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AttendanceComponent", function() { return AttendanceComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_attendance_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/attendance.service */ "./src/app/services/attendance.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AttendanceComponent = /** @class */ (function () {
+    function AttendanceComponent(attendanceService) {
+        this.attendanceService = attendanceService;
+    }
+    AttendanceComponent.prototype.ngOnInit = function () {
+    };
+    AttendanceComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-attendance',
+            template: __webpack_require__(/*! ./attendance.component.html */ "./src/app/attendance/attendance.component.html"),
+            styles: [__webpack_require__(/*! ./attendance.component.css */ "./src/app/attendance/attendance.component.css")]
+        }),
+        __metadata("design:paramtypes", [_services_attendance_service__WEBPACK_IMPORTED_MODULE_1__["AttendanceService"]])
+    ], AttendanceComponent);
+    return AttendanceComponent;
 }());
 
 
@@ -312,6 +411,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _balance_balance_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../balance/balance.component */ "./src/app/balance/balance.component.ts");
+/* harmony import */ var _attendance_attendance_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../attendance/attendance.component */ "./src/app/attendance/attendance.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -321,10 +421,11 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var appRoutes = [
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
-    { path: 'balance', component: _balance_balance_component__WEBPACK_IMPORTED_MODULE_2__["BalanceComponent"] }
-    //{ path: 'test', component: TestComponent }
+    { path: 'balance', component: _balance_balance_component__WEBPACK_IMPORTED_MODULE_2__["BalanceComponent"], data: { title: 'Balance' } },
+    { path: 'attendance', component: _attendance_attendance_component__WEBPACK_IMPORTED_MODULE_3__["AttendanceComponent"], data: { title: 'Attendance' } }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -340,6 +441,43 @@ var AppRoutingModule = /** @class */ (function () {
         })
     ], AppRoutingModule);
     return AppRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/attendance.service.ts":
+/*!************************************************!*\
+  !*** ./src/app/services/attendance.service.ts ***!
+  \************************************************/
+/*! exports provided: AttendanceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AttendanceService", function() { return AttendanceService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var AttendanceService = /** @class */ (function () {
+    function AttendanceService() {
+    }
+    AttendanceService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], AttendanceService);
+    return AttendanceService;
 }());
 
 

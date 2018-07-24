@@ -4,11 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 // import components here
 import { AppComponent } from '../app.component';
 import { BalanceComponent } from '../balance/balance.component';
+import { AttendanceComponent } from '../attendance/attendance.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'balance', pathMatch: 'full' },
-  { path: 'balance', component: BalanceComponent }
-  //{ path: 'test', component: TestComponent }
+  { path: 'balance', component: BalanceComponent, data: { title: 'Balance' } },
+  { path: 'attendance', component: AttendanceComponent, data: { title: 'Attendance' } }
     
 ];
 

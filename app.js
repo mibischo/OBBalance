@@ -21,6 +21,12 @@ app.get('/api/balance', (req, res) => {
     });
 });
 
+app.get('/api/attendance', (req, res) => {
+    sheetsapi.getAttendanceData().then(function (result) {
+        res.send(result);
+    });
+});
+
 // starting the server
 app.listen(port, () => {
   console.log('listening on ' + port)

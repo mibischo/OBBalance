@@ -8,13 +8,15 @@ import { MyMaterialModule } from './utils/material.module';
 import { AppRoutingModule } from './routing/app.routing.module';
 import { BalanceComponent } from './balance/balance.component';
 import { BalanceTableComponent } from './balance/balance-table/balance-table.component';
+import { AttendanceComponent } from './attendance/attendance.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     BalanceComponent,
-    BalanceTableComponent
+    BalanceTableComponent,
+    AttendanceComponent
   ],
   imports: [
     BrowserModule,
