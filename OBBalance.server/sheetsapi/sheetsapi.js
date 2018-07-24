@@ -1,10 +1,13 @@
 const { google } = require('googleapis');
 let Promise = require("promise");
+let a = require("../config/pkey.json");
 
 let isAuthenticated = false;
 let jwtClient;
-let email = process.env.EMAIL;
-let pkey = process.env.PKEY;
+// let email = process.env.EMAIL;
+// let pkey = process.env.PKEY;
+let email = a.client_email;
+let pkey = a.private_key;
 
 function authenticate() {
     jwtClient = new google.auth.JWT(email,
@@ -24,16 +27,23 @@ function authenticate() {
     });
 }
 
+let sheetdata = {
+    timestamp: new Date,
+    data: []
+};
+
 module.exports = {
     getBalanceData: function() {
         return new Promise(function (resolve, reject) {
-            if (!isAuthenticated) {
-                authenticate();
-            }
+            let now = new Date();
+            let diff = now - sheetdata.timestamp;
+            let diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
+            if (diffMins > 10 || sheetdata.data.length == 0) {
+                console.log('fetching new data');
+                if (!isAuthenticated) {
+                    authenticate();
+                }
 
-            // if (!isAuthenticated) {
-            //     console.log("Authentication failed, can't fetch data");
-            // } else {
                 //Google Sheets API
                 let spreadsheetId = '1vH09blVSor23uwzBirvcH54TzmpFUM_Fp7j6xZ7syXg';
                 let sheetName = 'Balance!B5:E700'
@@ -59,11 +69,15 @@ module.exports = {
                                     data.push(player);
                                 }
                             });
+                            sheetdata.data = data;
                             resolve(data);
                         }
                     }
                 );
-            // }
+            } else {
+                console.log('old data');
+                resolve(sheetdata.data);
+            }
         });
     }
 };
