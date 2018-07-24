@@ -4,10 +4,10 @@ let Promise = require("promise");
 
 let isAuthenticated = false;
 let jwtClient;
-// let email = process.env.EMAIL;
-// let pkey = process.env.PKEY;
-let email = a.client_email;
-let pkey = a.private_key;
+let email = process.env.EMAIL;
+let pkey = process.env.PKEY;
+// let email = a.client_email;
+// let pkey = a.private_key;
 // let sheet = { // new sheet
 //     spreadsheetId: '1gA3EqP8ALjjdwpNCA3uxXro0g0BlHoKqR4nTxi_IqA0',
 //     balanceSheet: 'Balance!B5:E700',
