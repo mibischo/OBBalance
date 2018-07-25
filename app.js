@@ -1,6 +1,11 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 var express = require('express');
 const bodyParser = require('body-parser');
 const sheetsapi = require('./OBBalance.server/sheetsapi/sheetsapi.js');
+
 
 // mongo example: https://www.callicoder.com/node-js-express-mongodb-restful-crud-api-tutorial/
 

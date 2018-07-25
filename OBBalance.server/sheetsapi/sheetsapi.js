@@ -87,7 +87,7 @@ module.exports = {
                             });
                             balanceData.timestamp = new Date();
                             balanceData.data = data;
-                            resolve(data);
+                            resolve(balanceData.data);
                         }
                     }
                 );
@@ -123,6 +123,7 @@ module.exports = {
                             console.log('The API returned an error: ' + err);
                         } else {
                             let data = [];
+                            let cnt = 0;
                             for (i=0; i<response.data.values.length; i+=6) {
                                 let names = response.data.values[i];
                                 let pot = response.data.values[i+1];
@@ -143,53 +144,57 @@ module.exports = {
                                             leaderCut: parseFloat(leaderCut[j].replace(/,/g, ''))
                                         };
 
-                                        attendanceData.raids[i+j] = raid;
+                                        attendanceData.raids[cnt+j] = raid;
                                     }
                                 }
+
+                                cnt+=5; // 5 raids in a row
                             }
 
                             // attendanceData.timestamp = new Date();
                             // resolve(attendanceData.raids);
+
+                            // get attendance
+                            sheets.spreadsheets.values.get({
+                                    auth: jwtClient,
+                                    spreadsheetId: sheet.spreadsheetId,
+                                    range: sheet.attendanceSheet
+                                }, 
+                                function (err, response) {
+                                    if (err) {
+                                        console.log('The API returned an error: ' + err);
+                                    } else {
+                                        let data = [];
+                                        response.data.values.map((row) => {
+                                            if (row[0]) {
+                                                let playerAttendance = {
+                                                    player: row[0],
+                                                    raids: []
+                                                }
+
+                                                for (i=1; i<attendanceData.raids.length; i++) {
+                                                    if (row[i]) {
+                                                        playerAttendance.raids.push(attendanceData.raids[i]);
+                                                    }
+                                                }
+
+                                                attendanceData.playerAttendance.push(playerAttendance);
+                                            }
+                                        });
+
+                                        attendanceData.timestamp = new Date();
+                                        resolve(attendanceData.playerAttendance);
+                                    }
+                                }
+                            );
                         }
                     }
                 );
-
-                // get attendance
-                sheets.spreadsheets.values.get({
-                    auth: jwtClient,
-                    spreadsheetId: sheet.spreadsheetId,
-                    range: sheet.attendanceSheet
-                }, 
-                function (err, response) {
-                    if (err) {
-                        console.log('The API returned an error: ' + err);
-                    } else {
-                        let data = [];
-                        response.data.values.map((row) => {
-                            if (row[0]) {
-                                let playerAttendance = {
-                                    player: row[0],
-                                    raids: []
-                                }
-
-                                for (i=1; i<attendanceData.raids.length; i++) {
-                                    if (row[i]) {
-                                        playerAttendance.raids.push(attendanceData.raids[i]);
-                                    }
-                                }
-
-                                attendanceData.playerAttendance.push(playerAttendance);
-                            }
-                        });
-
-                        attendanceData.timestamp = new Date();
-                        resolve(attendanceData.playerAttendance);
-                    }
-                }
-            );
             } else {
-                resolve(attendanceData.raids);
+                console.log('old data');
+                resolve(attendanceData.playerAttendance);
             }
+
         });
     }
 };
