@@ -192,9 +192,9 @@ function getAttendance(sheetConfig) {
                                             raids: []
                                         }
 
-                                        for (i=0; i<raids.length; i++) {
+                                        for (i=1; i<raids.length; i++) {
                                             if (row[i]) {
-                                                playerAttendance.raids.push(raids[i]);
+                                                playerAttendance.raids.push(raids[i-1]);
                                             }
                                         }
 
