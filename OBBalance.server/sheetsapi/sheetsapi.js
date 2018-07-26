@@ -74,7 +74,6 @@ let oldAttendanceData = {
 
 function getBalance(sheetConfig) {
     return new Promise(function (resolve, reject) {
-        console.log('fetching new data');
         if (!isAuthenticated) {
             authenticate();
         }
@@ -126,7 +125,6 @@ function getBalance(sheetConfig) {
 
 function getAttendance(sheetConfig) {
     return new Promise(function (resolve, reject) {
-        console.log('fetching new data');
         if (!isAuthenticated) {
             authenticate();
         }
@@ -224,11 +222,12 @@ module.exports = {
                 getBalance(currentSheet).then(function (result) {
                     currentBalanceData.timestamp = new Date();
                     currentBalanceData.data = result;
+                    console.log('new data - current balance: ' + currentBalanceData.timestamp);
                     currentBalanceData.loading = false
                     resolve(currentBalanceData.data);
                 });
             } else {
-                console.log('old data');
+                console.log('old data - current balance: ' + currentBalanceData.timestamp);
                 resolve(currentBalanceData.data);
             }
         });
@@ -244,11 +243,12 @@ module.exports = {
                 getBalance(oldSheet).then(function (result) {
                     oldBalanceData.timestamp = new Date();
                     oldBalanceData.data = result;
+                    console.log('new data - old balance: ' + oldBalanceData.timestamp);
                     oldBalanceData.loading = false
                     resolve(oldBalanceData.data);
                 });
             } else {
-                console.log('old data');
+                console.log('old data - old balance: ' + oldBalanceData.timestamp);
                 resolve(oldBalanceData.data);
             }
         });
@@ -264,11 +264,12 @@ module.exports = {
                 getAttendance(currentSheet).then(function (result) {
                     currentAttendanceData.timestamp = new Date();
                     currentAttendanceData.playerAttendance = result;
+                    console.log('new data - current attendance: ' + currentAttendanceData.timestamp);
                     currentAttendanceData.loading = false;
                     resolve(currentAttendanceData.playerAttendance);
                 });
             } else {
-                console.log('old data');
+                console.log('old data - current attendance: ' + currentAttendanceData.timestamp);
                 resolve(currentAttendanceData.playerAttendance);
             }
 
@@ -285,11 +286,12 @@ module.exports = {
                 getAttendance(oldSheet).then(function (result) {
                     oldAttendanceData.timestamp = new Date();
                     oldAttendanceData.playerAttendance = result;
+                    console.log('new data - old attendance: ' + oldAttendanceData.timestamp);
                     oldAttendanceData.loading = false;
                     resolve(oldAttendanceData.playerAttendance);
                 });
             } else {
-                console.log('old data');
+                console.log('old data - old attendance: ' + oldAttendanceData.timestamp);
                 resolve(oldAttendanceData.playerAttendance);
             }
 
