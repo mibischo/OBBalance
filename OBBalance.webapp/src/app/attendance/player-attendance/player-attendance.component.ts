@@ -13,7 +13,7 @@ export class PlayerAttendanceComponent implements OnInit {
       this._dataSource = new MatTableDataSource(value);
       this.data = value;
       // this._dataSource.sort = this.sort;
-      console.log(value);
+      // console.log(value);
     }
   };
 

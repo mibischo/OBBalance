@@ -13,7 +13,7 @@ export class PlayerTableComponent implements OnInit {
       this._dataSource = new MatTableDataSource(value);
       this.data = value;
       // this._dataSource.sort = this.sort;
-      console.log(value);
+      // console.log(value);
     }
   };
 
@@ -22,6 +22,7 @@ export class PlayerTableComponent implements OnInit {
   data: any[];
   _dataSource = new MatTableDataSource([]);
   displayedColumns = ['name', 'nrRaids'];
+  selectedRow: any = { player: '' };
 
   constructor() { }
 
@@ -35,5 +36,6 @@ export class PlayerTableComponent implements OnInit {
 
   selectPlayer(player: any) {
     this.onSelect.emit(player);
+    this.selectedRow = player;
   }
 }

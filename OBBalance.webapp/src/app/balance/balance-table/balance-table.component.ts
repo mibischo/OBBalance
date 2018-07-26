@@ -13,13 +13,13 @@ export class BalanceTableComponent implements OnInit {
       this._dataSource = new MatTableDataSource(value);
       this.data = value;
       // this._dataSource.sort = this.sort;
-      console.log(value);
+      // console.log(value);
     }
   };
 
   data: any[];
   _dataSource = new MatTableDataSource([]);
-  displayedColumns = ['name', 'balance', 'paid', 'owed'];
+  displayedColumns = ['name', 'balance', 'paid', 'owed', 'extra', 'info'];
 
   constructor() { }
 

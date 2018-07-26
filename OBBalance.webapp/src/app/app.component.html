@@ -1,5 +1,4 @@
-
-
+<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "large" color = "#fff" ype = "ball-beat"></ngx-spinner>
 <mat-sidenav-container class="sidenav-container" fullscreen>
   
   <mat-sidenav class="sidenav" #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
@@ -8,10 +7,16 @@
     </div>
     <mat-list class="navigation">
       <mat-list-item>
-        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/balance" >Balance</a>
+        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/balance/current" >Balance</a>
       </mat-list-item>
       <mat-list-item>
-        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/attendance">Attendance</a>
+        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/balance/old" >Old Balance</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/attendance/current">Attendance</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/attendance/old">Old Attendance</a>
       </mat-list-item>
     </mat-list>
   </mat-sidenav>

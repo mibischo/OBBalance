@@ -21,7 +21,7 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row (click)="selectPlayer(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row (click)="selectPlayer(row)" [ngClass]="{'highlight': selectedRow.player == row.player}" *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
 </div>

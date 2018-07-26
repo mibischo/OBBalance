@@ -20,14 +20,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
-app.get('/api/balance', (req, res) => {
-    sheetsapi.getBalanceData().then(function (result) {
+app.get('/api/currentBalance', (req, res) => {
+    sheetsapi.getCurrentBalanceData().then(function (result) {
         res.send(result);
     });
 });
 
-app.get('/api/attendance', (req, res) => {
-    sheetsapi.getAttendanceData().then(function (result) {
+app.get('/api/oldBalance', (req, res) => {
+    sheetsapi.getOldBalanceData().then(function (result) {
+        res.send(result);
+    });
+});
+
+app.get('/api/currentAttendance', (req, res) => {
+    sheetsapi.getCurrentAttendanceData().then(function (result) {
+        res.send(result);
+    });
+});
+
+app.get('/api/oldAttendance', (req, res) => {
+    sheetsapi.getOldAttendanceData().then(function (result) {
         res.send(result);
     });
 });

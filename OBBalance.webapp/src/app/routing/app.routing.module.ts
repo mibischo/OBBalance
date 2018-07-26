@@ -7,9 +7,9 @@ import { BalanceComponent } from '../balance/balance.component';
 import { AttendanceComponent } from '../attendance/attendance.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'balance', pathMatch: 'full' },
-  { path: 'balance', component: BalanceComponent, data: { title: 'Balance' } },
-  { path: 'attendance', component: AttendanceComponent, data: { title: 'Attendance' } }
+  { path: '', redirectTo: 'balance/', pathMatch: 'full' },
+  { path: 'balance/:flag', component: BalanceComponent, data: { title: 'Balance' } },
+  { path: 'attendance/:flag', component: AttendanceComponent, data: { title: 'Attendance' } }
     
 ];
 

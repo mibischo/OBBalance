@@ -6,6 +6,8 @@ let isAuthenticated = false;
 let jwtClient;
 let email = process.env.EMAIL;
 let pkey = process.env.PKEY;
+// console.log(email);
+// console.log(pkey);
 // let email = a.client_email;
 // let pkey = a.private_key;
 // let sheet = { // new sheet
@@ -14,12 +16,19 @@ let pkey = process.env.PKEY;
 //     raidSheet: 'OTB!ZU2:ZY415',
 //     attendanceSheet: ''
 // };
-let sheet = { // old sheet for dev
-    spreadsheetId: '1vH09blVSor23uwzBirvcH54TzmpFUM_Fp7j6xZ7syXg',
-    balanceSheet: 'Balance!B5:E700',
-    raidSheet: 'OTB!ZU2:ZY415',
-    attendanceSheet: 'OTB!B4:ZR700'
+let currentSheet = { // old sheet for dev
+    spreadsheetId: '1kVsThQ-IrJp0tmWyyBK892dInmUKTmn9gHr2AbzzV1g',
+    balanceSheet: 'Balance!B5:J700',
+    raidSheet: 'ATD!ZT2:ZX415', // new atd sheet changed columns 
+    attendanceSheet: 'ATD!B4:ZQ700'
 };
+
+let oldSheet = {
+    spreadsheetId: '1kVsThQ-IrJp0tmWyyBK892dInmUKTmn9gHr2AbzzV1g',
+    balanceSheet: '18-7_Balance!B5:J700',
+    raidSheet: '18-7_OTB!ZU2:ZY415',
+    attendanceSheet: '18-7_OTB!B4:ZR700'
+}
 
 function authenticate() {
     jwtClient = new google.auth.JWT(email,
@@ -39,160 +48,249 @@ function authenticate() {
     });
 }
 
-let balanceData = {
+let currentBalanceData = {
     timestamp: new Date(),
-    data: []
+    data: [],
+    loading: false
 };
 
-let attendanceData = {
+let currentAttendanceData = {
     timestamp: new Date(),
-    raids: [],
-    playerAttendance: []
+    playerAttendance: [],
+    loading: false
 };
+
+let oldBalanceData = {
+    timestamp: new Date(),
+    data: [],
+    loading: false
+};
+
+let oldAttendanceData = {
+    timestamp: new Date(),
+    playerAttendance: [],
+    loading: false
+};
+
+function getBalance(sheetConfig) {
+    return new Promise(function (resolve, reject) {
+        console.log('fetching new data');
+        if (!isAuthenticated) {
+            authenticate();
+        }
+
+        //Google Sheets API
+        let sheets = google.sheets('v4');
+        // sheets.spreadsheets.get({
+        //         auth: jwtClient,
+        //         spreadsheetId: sheetConfig.spreadsheetId,
+        //         // range: sheetConfig.balanceSheet
+        //     }, 
+        //     function (err, response) {
+        //         response.data.sheets.forEach(element => {
+        //             console.log(element.properties);
+        //         });
+        //     }
+        // );
+        console.log(sheetConfig.balanceSheet);
+
+        sheets.spreadsheets.values.get({
+                auth: jwtClient,
+                spreadsheetId: sheetConfig.spreadsheetId,
+                range: sheetConfig.balanceSheet
+            }, 
+            function (err, response) {
+                if (err) {
+                    console.log('The API returned an error: ' + err);
+                } else {
+                    let data = [];
+                    response.data.values.map((row) => {
+                        if (row[0] != '') {
+                            let player = {
+                                name: row[0],
+                                balance: row[1] !== "" ? parseInt(row[1].replace(/,/g, '')) : 0,
+                                paid: row[2] !== "" ? parseInt(row[2].replace(/,/g, '')) : 0,
+                                owed: row[3] !== "" ? parseInt(row[3].replace(/,/g, '')) : 0,
+                                extra: row[7] !== undefined ? parseInt(row[7].replace(/,/g, '')) : 0,
+                                info: row[8] !== undefined ? row[8] : ''
+                            };
+                            data.push(player);
+                        }
+                    });
+                    resolve(data);
+                }
+            }
+        );
+    });
+}
+
+function getAttendance(sheetConfig) {
+    return new Promise(function (resolve, reject) {
+        console.log('fetching new data');
+        if (!isAuthenticated) {
+            authenticate();
+        }
+
+        //Google Sheets API
+        let sheets = google.sheets('v4');
+
+        // get raids
+        sheets.spreadsheets.values.get({
+                auth: jwtClient,
+                spreadsheetId: sheetConfig.spreadsheetId,
+                range: sheetConfig.raidSheet
+            }, 
+            function (err, response) {
+                if (err) {
+                    console.log('The API returned an error: ' + err);
+                } else {
+                    let raids = [];
+                    let cnt = 0;
+                    for (i=0; i<response.data.values.length; i+=6) {
+                        let names = response.data.values[i];
+                        let pot = response.data.values[i+1];
+                        let boosters = response.data.values[i+2];
+                        let quater = response.data.values[i+3];
+                        let raiderCut = response.data.values[i+4];
+                        let leaderCut = response.data.values[i+5];
+
+                        for (j=0; j<5; j++) {
+                            if (isNaN(response.data.values[i][j]) && response.data.values[i][j] !== undefined) {
+                                let raid = {
+                                    hash: '',
+                                    name: names[j],
+                                    pot: parseFloat(pot[j].replace(/,/g, '')),
+                                    boosters: parseInt(boosters[j]),
+                                    quater: parseFloat(quater[j].replace(/,/g, '')),
+                                    raiderCut: parseFloat(raiderCut[j].replace(/,/g, '')),
+                                    leaderCut: parseFloat(leaderCut[j].replace(/,/g, ''))
+                                };
+
+                                raids[cnt+j] = raid;
+                            }
+                        }
+
+                        cnt+=5; // 5 raids in a row
+                    }
+
+                    // attendanceData.timestamp = new Date();
+                    // resolve(attendanceData.raids);
+
+                    // get attendance
+                    sheets.spreadsheets.values.get({
+                            auth: jwtClient,
+                            spreadsheetId: sheetConfig.spreadsheetId,
+                            range: sheetConfig.attendanceSheet
+                        }, 
+                        function (err, response) {
+                            if (err) {
+                                console.log('The API returned an error: ' + err);
+                            } else {
+                                let attendance = [];
+                                response.data.values.map((row) => {
+                                    if (row[0]) {
+                                        let playerAttendance = {
+                                            player: row[0],
+                                            raids: []
+                                        }
+
+                                        for (i=1; i<raids.length; i++) {
+                                            if (row[i]) {
+                                                playerAttendance.raids.push(raids[i]);
+                                            }
+                                        }
+
+                                        attendance.push(playerAttendance);
+                                    }
+                                });
+                                resolve(attendance);
+                            }
+                        }
+                    );
+                }
+            }
+        );
+    });
+}
 
 module.exports = {
-    getBalanceData: function() {
+    getCurrentBalanceData: function() {
         return new Promise(function (resolve, reject) {
             let now = new Date();
-            let diff = now - balanceData.timestamp;
+            let diff = now - currentBalanceData.timestamp;
             let diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
-            if (diffMins > 10 || balanceData.data.length == 0) {
-                console.log('fetching new data');
-                if (!isAuthenticated) {
-                    authenticate();
-                }
-
-                //Google Sheets API
-                let sheets = google.sheets('v4');
-                sheets.spreadsheets.values.get({
-                        auth: jwtClient,
-                        spreadsheetId: sheet.spreadsheetId,
-                        range: sheet.balanceSheet
-                    }, 
-                    function (err, response) {
-                        if (err) {
-                            console.log('The API returned an error: ' + err);
-                        } else {
-                            let data = [];
-                            response.data.values.map((row) => {
-                                if (row[0] != '') {
-                                    let player = {
-                                        name: row[0],
-                                        balance: parseInt(row[1].replace(/,/g, '')),
-                                        paid: parseInt(row[2].replace(/,/g, '')),
-                                        owed: parseInt(row[3].replace(/,/g, ''))
-                                    };
-                                    data.push(player);
-                                }
-                            });
-                            balanceData.timestamp = new Date();
-                            balanceData.data = data;
-                            resolve(balanceData.data);
-                        }
-                    }
-                );
+            if ((diffMins > 10 || currentBalanceData.data.length == 0) && !currentBalanceData.loading) {
+                currentBalanceData.loading = true;
+                getBalance(currentSheet).then(function (result) {
+                    currentBalanceData.timestamp = new Date();
+                    currentBalanceData.data = result;
+                    currentBalanceData.loading = false
+                    resolve(currentBalanceData.data);
+                });
             } else {
                 console.log('old data');
-                resolve(balanceData.data);
+                resolve(currentBalanceData.data);
             }
         });
     },
 
-    getAttendanceData: function () {
+    getOldBalanceData: function() {
         return new Promise(function (resolve, reject) {
             let now = new Date();
-            let diff = now - attendanceData.timestamp;
+            let diff = now - oldBalanceData.timestamp;
             let diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
-            if (diffMins > 10 || Object.keys(attendanceData.raids).length === 0) {
-                console.log('fetching new data');
-                if (!isAuthenticated) {
-                    authenticate();
-                }
-
-                //Google Sheets API
-                let sheets = google.sheets('v4');
-
-                // get raids
-                sheets.spreadsheets.values.get({
-                        auth: jwtClient,
-                        spreadsheetId: sheet.spreadsheetId,
-                        range: sheet.raidSheet
-                    }, 
-                    function (err, response) {
-                        if (err) {
-                            console.log('The API returned an error: ' + err);
-                        } else {
-                            let data = [];
-                            let cnt = 0;
-                            for (i=0; i<response.data.values.length; i+=6) {
-                                let names = response.data.values[i];
-                                let pot = response.data.values[i+1];
-                                let boosters = response.data.values[i+2];
-                                let quater = response.data.values[i+3];
-                                let raiderCut = response.data.values[i+4];
-                                let leaderCut = response.data.values[i+5];
-
-                                for (j=0; j<5; j++) {
-                                    if (isNaN(response.data.values[i][j])) {
-                                        let raid = {
-                                            hash: '',
-                                            name: names[j],
-                                            pot: parseFloat(pot[j].replace(/,/g, '')),
-                                            boosters: parseInt(boosters[j]),
-                                            quater: parseFloat(quater[j].replace(/,/g, '')),
-                                            raiderCut: parseFloat(raiderCut[j].replace(/,/g, '')),
-                                            leaderCut: parseFloat(leaderCut[j].replace(/,/g, ''))
-                                        };
-
-                                        attendanceData.raids[cnt+j] = raid;
-                                    }
-                                }
-
-                                cnt+=5; // 5 raids in a row
-                            }
-
-                            // attendanceData.timestamp = new Date();
-                            // resolve(attendanceData.raids);
-
-                            // get attendance
-                            sheets.spreadsheets.values.get({
-                                    auth: jwtClient,
-                                    spreadsheetId: sheet.spreadsheetId,
-                                    range: sheet.attendanceSheet
-                                }, 
-                                function (err, response) {
-                                    if (err) {
-                                        console.log('The API returned an error: ' + err);
-                                    } else {
-                                        let data = [];
-                                        response.data.values.map((row) => {
-                                            if (row[0]) {
-                                                let playerAttendance = {
-                                                    player: row[0],
-                                                    raids: []
-                                                }
-
-                                                for (i=1; i<attendanceData.raids.length; i++) {
-                                                    if (row[i]) {
-                                                        playerAttendance.raids.push(attendanceData.raids[i]);
-                                                    }
-                                                }
-
-                                                attendanceData.playerAttendance.push(playerAttendance);
-                                            }
-                                        });
-
-                                        attendanceData.timestamp = new Date();
-                                        resolve(attendanceData.playerAttendance);
-                                    }
-                                }
-                            );
-                        }
-                    }
-                );
+            if ((diffMins > 10 || oldBalanceData.data.length == 0) && !oldBalanceData.loading) {
+                oldBalanceData.loading = true;
+                getBalance(oldSheet).then(function (result) {
+                    oldBalanceData.timestamp = new Date();
+                    oldBalanceData.data = result;
+                    oldBalanceData.loading = false
+                    resolve(oldBalanceData.data);
+                });
             } else {
                 console.log('old data');
-                resolve(attendanceData.playerAttendance);
+                resolve(oldBalanceData.data);
+            }
+        });
+    },
+
+    getCurrentAttendanceData: function () {
+        return new Promise(function (resolve, reject) {
+            let now = new Date();
+            let diff = now - currentAttendanceData.timestamp;
+            let diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
+            if ((diffMins > 10 || currentAttendanceData.playerAttendance.length === 0) && !currentAttendanceData.loading) {
+                currentAttendanceData.loading = true;
+                getAttendance(currentSheet).then(function (result) {
+                    currentAttendanceData.timestamp = new Date();
+                    currentAttendanceData.playerAttendance = result;
+                    currentAttendanceData.loading = false;
+                    resolve(currentAttendanceData.playerAttendance);
+                });
+            } else {
+                console.log('old data');
+                resolve(currentAttendanceData.playerAttendance);
+            }
+
+        });
+    },
+
+    getOldAttendanceData: function () {
+        return new Promise(function (resolve, reject) {
+            let now = new Date();
+            let diff = now - oldAttendanceData.timestamp;
+            let diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
+            if ((diffMins > 10 || oldAttendanceData.playerAttendance.length === 0) && !oldAttendanceData.loading) {
+                oldAttendanceData.loading = true;
+                getAttendance(oldSheet).then(function (result) {
+                    oldAttendanceData.timestamp = new Date();
+                    oldAttendanceData.playerAttendance = result;
+                    oldAttendanceData.loading = false;
+                    resolve(oldAttendanceData.playerAttendance);
+                });
+            } else {
+                console.log('old data');
+                resolve(oldAttendanceData.playerAttendance);
             }
 
         });

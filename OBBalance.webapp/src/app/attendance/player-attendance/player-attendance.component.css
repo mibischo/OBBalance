@@ -3,3 +3,13 @@
     margin-left: 32px;
     margin-top: 48px;
 }
+
+.mat-header-row {
+    position: sticky;
+    top: 0;
+    background-color: inherit;
+}
+
+.mat-row:hover {
+    background-color: rgb(0, 123, 253, 0.25);
+}

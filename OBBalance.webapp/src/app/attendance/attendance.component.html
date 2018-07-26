@@ -1,4 +1,4 @@
 <div fxLayout="row" style="height: 95vh;">
-  <div fxFlex="40"><app-player-table [dataSource]="attendance | async" (onSelect)="onPlayerSelect($event)"></app-player-table></div>
-  <div fxFlex="60"><app-player-attendance *ngIf="selectedPlayer != null" [dataSource]="selectedPlayer.raids" [playerName]="selectedPlayer.player"></app-player-attendance></div>
+  <div fxFlex="30"><app-player-table [dataSource]="attendance | async" (onSelect)="onPlayerSelect($event)"></app-player-table></div>
+  <div fxFlex="70"><app-player-attendance *ngIf="selectedPlayer != null" [dataSource]="selectedPlayer.raids" [playerName]="selectedPlayer.player"></app-player-attendance></div>
 </div>

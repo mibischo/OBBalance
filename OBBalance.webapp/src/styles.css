@@ -10,6 +10,15 @@ body {
     margin: 16px;
 }
 
+.mat-cell {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    word-wrap: break-word;
+    min-height: 0px;
+}
+
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
