@@ -40,7 +40,7 @@
 }
 
 .sidenav {
-    width: 350px;
+    width: 250px;
 }
 
 .sidenave-button {
@@ -51,7 +51,7 @@
     background-color: #3f51b5;
     display:flex;
     align-items:center;
-    width:350px;
+    width:250px;
     height:64px;
 }
 
