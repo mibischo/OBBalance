@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 var express = require('express');
 const bodyParser = require('body-parser');
 const sheetsapi = require('./OBBalance.server/sheetsapi/sheetsapi.js');
+var indexRouter = require('./OBBalance.server/routes/index');
 
 
 // mongo example: https://www.callicoder.com/node-js-express-mongodb-restful-crud-api-tutorial/
@@ -19,6 +20,8 @@ app.use(express.static('wwwroot'));
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
+
+app.use('/', indexRouter);
 
 app.get('/api/currentBalance', (req, res) => {
     sheetsapi.getCurrentBalanceData().then(function (result) {
