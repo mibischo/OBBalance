@@ -2,6 +2,7 @@
 
 const { google } = require('googleapis');
 let Promise = require("promise");
+const balance = require('../controllers').balance;
 // let a = require("../config/pkey.json");
 
 let isAuthenticated = false;
@@ -225,7 +226,8 @@ module.exports = {
                     currentBalanceData.timestamp = new Date();
                     currentBalanceData.data = result;
                     console.log('new data - current balance: ' + currentBalanceData.timestamp);
-                    currentBalanceData.loading = false
+                    currentBalanceData.loading = false;
+                    balance.saveCurrent(currentBalanceData.data);
                     resolve(currentBalanceData.data);
                 });
             } else {
