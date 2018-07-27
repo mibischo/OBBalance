@@ -1,3 +1,5 @@
+'use strict';
+
 const { google } = require('googleapis');
 let Promise = require("promise");
 // let a = require("../config/pkey.json");
