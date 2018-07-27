@@ -1,10 +1,7 @@
-'use strict';
-
 const { google } = require('googleapis');
 let Promise = require("promise");
 const balance = require('../controllers').balance;
 const attendance = require('../controllers').attendance;
-// let a = require("../config/pkey.json");
 
 let isAuthenticated = false;
 let jwtClient;
@@ -44,30 +41,6 @@ function authenticate() {
     });
 }
 
-let currentBalanceData = {
-    timestamp: new Date(),
-    data: [],
-    loading: false
-};
-
-let currentAttendanceData = {
-    timestamp: new Date(),
-    playerAttendance: [],
-    loading: false
-};
-
-let oldBalanceData = {
-    timestamp: new Date(),
-    data: [],
-    loading: false
-};
-
-let oldAttendanceData = {
-    timestamp: new Date(),
-    playerAttendance: [],
-    loading: false
-};
-
 function getBalance(sheetConfig) {
     return new Promise(function (resolve, reject) {
         if (!isAuthenticated) {
@@ -76,8 +49,6 @@ function getBalance(sheetConfig) {
 
         //Google Sheets API
         let sheets = google.sheets('v4');
-        console.log(sheetConfig.balanceSheet);
-
         sheets.spreadsheets.values.get({
                 auth: jwtClient,
                 spreadsheetId: sheetConfig.spreadsheetId,
@@ -197,93 +168,31 @@ function getAttendance(sheetConfig) {
 }
 
 module.exports = {
-    getCurrentBalanceData: function() {
-        return new Promise(function (resolve, reject) {
-            let now = new Date();
-            let diff = now - currentBalanceData.timestamp;
-            let diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
-            if ((diffMins > 10 || currentBalanceData.data.length == 0) && !currentBalanceData.loading) {
-                currentBalanceData.loading = true;
-                getBalance(currentSheet).then(function (result) {
-                    currentBalanceData.timestamp = new Date();
-                    currentBalanceData.data = result;
-                    console.log('new data - current balance: ' + currentBalanceData.timestamp);
-                    currentBalanceData.loading = false;
-                    balance.saveCurrent(currentBalanceData.data);
-                    resolve(currentBalanceData.data);
-                });
-            } else {
-                console.log('old data - current balance: ' + currentBalanceData.timestamp);
-                resolve(currentBalanceData.data);
-            }
+    getSheetData() {
+        console.log('getting new data from spreadsheet');
+
+        console.log('current balance data');
+        getBalance(currentSheet).then(function (result) {
+            console.log('new current balance data');
+            balance.saveCurrent(result);
         });
-    },
 
-    getOldBalanceData: function() {
-        return new Promise(function (resolve, reject) {
-            let now = new Date();
-            let diff = now - oldBalanceData.timestamp;
-            let diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
-            if ((diffMins > 10 || oldBalanceData.data.length == 0) && !oldBalanceData.loading) {
-                oldBalanceData.loading = true;
-                getBalance(oldSheet).then(function (result) {
-                    oldBalanceData.timestamp = new Date();
-                    oldBalanceData.data = result;
-                    console.log('new data - old balance: ' + oldBalanceData.timestamp);
-                    oldBalanceData.loading = false
-                    balance.saveOld(oldBalanceData.data);
-                    resolve(oldBalanceData.data);
-                });
-            } else {
-                console.log('old data - old balance: ' + oldBalanceData.timestamp);
-                resolve(oldBalanceData.data);
-            }
+        console.log('old balance data');
+        getBalance(oldSheet).then(function (result) {
+            console.log('new old balance data');
+            balance.saveOld(result);
         });
-    },
 
-    getCurrentAttendanceData: function () {
-        return new Promise(function (resolve, reject) {
-            let now = new Date();
-            let diff = now - currentAttendanceData.timestamp;
-            let diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
-            if ((diffMins > 10 || currentAttendanceData.playerAttendance.length === 0) && !currentAttendanceData.loading) {
-                currentAttendanceData.loading = true;
-                getAttendance(currentSheet).then(function (result) {
-                    currentAttendanceData.timestamp = new Date();
-                    currentAttendanceData.playerAttendance = result;
-                    console.log('new data - current attendance: ' + currentAttendanceData.timestamp);
-                    currentAttendanceData.loading = false;
-                    attendance.saveCurrent(currentAttendanceData.playerAttendance);
-                    resolve(currentAttendanceData.playerAttendance);
-                });
-            } else {
-                console.log('old data - current attendance: ' + currentAttendanceData.timestamp);
-                resolve(currentAttendanceData.playerAttendance);
-            }
-
+        console.log('current attendance data');
+        getAttendance(currentSheet).then(function (result) {
+            console.log('new current attendance data');
+            attendance.saveCurrent(result);
         });
-    },
 
-    getOldAttendanceData: function () {
-        return new Promise(function (resolve, reject) {
-            let now = new Date();
-            let diff = now - oldAttendanceData.timestamp;
-            let diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
-            if ((diffMins > 10 || oldAttendanceData.playerAttendance.length === 0) && !oldAttendanceData.loading) {
-                oldAttendanceData.loading = true;
-                getAttendance(oldSheet).then(function (result) {
-                    oldAttendanceData.timestamp = new Date();
-                    oldAttendanceData.playerAttendance = result;
-                    console.log('new data - old attendance: ' + oldAttendanceData.timestamp);
-                    oldAttendanceData.loading = false;
-                    attendance.saveCurrent(currentAttendanceData.playerAttendance);
-                    resolve(oldAttendanceData.playerAttendance);
-                });
-            } else {
-                console.log('old data - old attendance: ' + oldAttendanceData.timestamp);
-                resolve(oldAttendanceData.playerAttendance);
-            }
-
+        console.log('old attendance data');
+        getAttendance(oldSheet).then(function (result) {
+            console.log('new old attendance data');
+            attendance.saveOld(result);
         });
     }
 };

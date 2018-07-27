@@ -15,26 +15,26 @@ module.exports = {
                         .catch((error) => res.status(400).send(error));
     },
 
-    saveCurrent(balance) {
+    saveCurrent(attendance) {
         return Sheetdata.findOne({ where: { key: { [Op.like]: 'attendance_current'}}})
                         .then((obj) => {
                             if(obj) { // update
-                                return obj.update({ data: balance | obj.data });
+                                return obj.update({ data: attendance });
                             }
                             else { // insert
-                                return Sheetdata.create({ key: 'attendance_current', data: balance });
+                                return Sheetdata.create({ key: 'attendance_current', data: attendance });
                             }
                         });
     },
 
-    saveOld(balance) {
+    saveOld(attendance) {
         return Sheetdata.findOne({ where: { key: 'attendance_old'}})
                         .then((obj) => {
                             if(obj) { // update
-                                return obj.update({ data: balance | obj.data });
+                                return obj.update({ data: attendance });
                             }
                             else { // insert
-                                return Sheetdata.create({ key: 'attendance_old', data: balance });
+                                return Sheetdata.create({ key: 'attendance_old', data: attendance });
                             }
                         });
     }

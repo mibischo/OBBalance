@@ -13,7 +13,7 @@ export class BalanceService {
 
   getCurrentBalance(): Observable<any[]> {
     this.spinner.show();
-    return this.http.get('/api/currentBalance').pipe(map(res => {
+    return this.http.get('/api/balance/current').pipe(map(res => {
       let ret = res.json();
       this.spinner.hide();
       return ret;
@@ -22,7 +22,7 @@ export class BalanceService {
 
   getOldBalance(): Observable<any[]> {
     this.spinner.show();
-    return this.http.get('/api/oldBalance').pipe(map(res => {
+    return this.http.get('/api/balance/old').pipe(map(res => {
       let ret = res.json();
       this.spinner.hide();
       return ret;
