@@ -3,22 +3,15 @@
 const { google } = require('googleapis');
 let Promise = require("promise");
 const balance = require('../controllers').balance;
+const attendance = require('../controllers').attendance;
 // let a = require("../config/pkey.json");
 
 let isAuthenticated = false;
 let jwtClient;
 let email = process.env.EMAIL;
 let pkey = process.env.PKEY;
-// console.log(email);
-// console.log(pkey);
-// let email = a.client_email;
-// let pkey = a.private_key;
-// let sheet = { // new sheet
-//     spreadsheetId: '1gA3EqP8ALjjdwpNCA3uxXro0g0BlHoKqR4nTxi_IqA0',
-//     balanceSheet: 'Balance!B5:E700',
-//     raidSheet: 'OTB!ZU2:ZY415',
-//     attendanceSheet: ''
-// };
+
+
 let currentSheet = { // old sheet for dev
     spreadsheetId: '1kVsThQ-IrJp0tmWyyBK892dInmUKTmn9gHr2AbzzV1g',
     balanceSheet: 'Balance!B5:J700',
@@ -83,17 +76,6 @@ function getBalance(sheetConfig) {
 
         //Google Sheets API
         let sheets = google.sheets('v4');
-        // sheets.spreadsheets.get({
-        //         auth: jwtClient,
-        //         spreadsheetId: sheetConfig.spreadsheetId,
-        //         // range: sheetConfig.balanceSheet
-        //     }, 
-        //     function (err, response) {
-        //         response.data.sheets.forEach(element => {
-        //             console.log(element.properties);
-        //         });
-        //     }
-        // );
         console.log(sheetConfig.balanceSheet);
 
         sheets.spreadsheets.values.get({
@@ -249,6 +231,7 @@ module.exports = {
                     oldBalanceData.data = result;
                     console.log('new data - old balance: ' + oldBalanceData.timestamp);
                     oldBalanceData.loading = false
+                    balance.saveOld(oldBalanceData.data);
                     resolve(oldBalanceData.data);
                 });
             } else {
@@ -270,6 +253,7 @@ module.exports = {
                     currentAttendanceData.playerAttendance = result;
                     console.log('new data - current attendance: ' + currentAttendanceData.timestamp);
                     currentAttendanceData.loading = false;
+                    attendance.saveCurrent(currentAttendanceData.playerAttendance);
                     resolve(currentAttendanceData.playerAttendance);
                 });
             } else {
@@ -292,6 +276,7 @@ module.exports = {
                     oldAttendanceData.playerAttendance = result;
                     console.log('new data - old attendance: ' + oldAttendanceData.timestamp);
                     oldAttendanceData.loading = false;
+                    attendance.saveCurrent(currentAttendanceData.playerAttendance);
                     resolve(oldAttendanceData.playerAttendance);
                 });
             } else {
