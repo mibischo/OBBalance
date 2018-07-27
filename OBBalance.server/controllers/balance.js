@@ -4,22 +4,22 @@ const Op = Sequelize.Op;
 
 module.exports = {
     getCurrent(req, res) {
-        return Sheetdata.findOne({ where: { key: { [Op.like]: 'balance_current' }}})
+        return Sheetdata.findOne({ where: { key: { [Op.eq]: 'balance_current' }}})
                         .then((sheetdata) => res.status(200).send(sheetdata.data))
                         .catch((error) => res.status(400).send(error));
     },
 
     getOld(req, res) {
-        return Sheetdata.findOne({ where: { key: { [Op.like]: 'balance_old' }}})
+        return Sheetdata.findOne({ where: { key: { [Op.eq]: 'balance_old' }}})
                         .then((sheetdata) => res.status(200).send(sheetdata.data))
                         .catch((error) => res.status(400).send(error));
     },
 
     saveCurrent(balance) {
-        return Sheetdata.findOne({ where: { key: { [Op.like]: 'balance_current'}}})
+        return Sheetdata.findOne({ where: { key: { [Op.eq]: 'balance_current'}}})
                         .then((obj) => {
                             if(obj) { // update
-                                return obj.update({ data: balance | obj.data });
+                                return obj.update({ data: balance });
                             }
                             else { // insert
                                 return Sheetdata.create({ key: 'balance_current', data: balance });
@@ -28,10 +28,10 @@ module.exports = {
     },
 
     saveOld(balance) {
-        return Sheetdata.findOne({ where: { key: 'balance_old'}})
+        return Sheetdata.findOne({ where: { key: { [Op.eq]: 'balance_old'}}})
                         .then((obj) => {
                             if(obj) { // update
-                                return obj.update({ data: balance | obj.data });
+                                return obj.update({ data: balance });
                             }
                             else { // insert
                                 return Sheetdata.create({ key: 'balance_old', data: balance });

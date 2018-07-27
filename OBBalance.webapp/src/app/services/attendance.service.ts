@@ -13,7 +13,7 @@ export class AttendanceService {
 
   getCurrentAttendance(): Observable<any[]> {
     this.spinner.show();
-    return this.http.get('/api/currentAttendance').pipe(map(res => {
+    return this.http.get('/api/attendance/current').pipe(map(res => {
       let ret = res.json();
       this.spinner.hide();
       return ret;
@@ -22,7 +22,7 @@ export class AttendanceService {
 
   getOldAttendance(): Observable<any[]> {
     this.spinner.show();
-    return this.http.get('/api/oldAttendance').pipe(map(res => {
+    return this.http.get('/api/attendance/old').pipe(map(res => {
       let ret = res.json();
       this.spinner.hide();
       return ret;

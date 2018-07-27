@@ -1,10 +1,12 @@
-const cluster = require('cluster');
-
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-if (cluster.isMaster) {
+const cluster = require('cluster');
+const sheetsapi = require('./OBBalance.server/sheetsapi/sheetsapi.js');
+
+if (cluster.isMaster && process.env.NODE_ENV === 'production') {
+
     console.log('Application running, forking!');
     // Count the machine's CPUs
     var cpuCount = require('os').cpus().length;
@@ -23,16 +25,23 @@ if (cluster.isMaster) {
 
     });
 
+    sheetsapi.getSheetData();
     setInterval(function () {
-        console.log('boo')
-    }, 1000);
+        sheetsapi.getSheetData();
+    }, 10000*60*10);
 } else {
+    if (process.env.NODE_ENV !== 'production') {
+        sheetsapi.getSheetData();
+        setInterval(function () {
+            sheetsapi.getSheetData();
+        }, 10000*60*10);
+    } else {
+        console.log('Worker %d running!', cluster.worker.id);
+    }
 
-    console.log('Worker %d running!', cluster.worker.id);
 
     var express = require('express');
     const bodyParser = require('body-parser');
-    const sheetsapi = require('./OBBalance.server/sheetsapi/sheetsapi.js');
     var indexRouter = require('./OBBalance.server/routes/index');
 
     var app = express();
@@ -45,30 +54,6 @@ if (cluster.isMaster) {
     app.use(bodyParser.json());
 
     app.use('/', indexRouter);
-
-    app.get('/api/currentBalance', (req, res) => {
-        sheetsapi.getCurrentBalanceData().then(function (result) {
-            res.send(result);
-        });
-    });
-
-    app.get('/api/oldBalance', (req, res) => {
-        sheetsapi.getOldBalanceData().then(function (result) {
-            res.send(result);
-        });
-    });
-
-    app.get('/api/currentAttendance', (req, res) => {
-        sheetsapi.getCurrentAttendanceData().then(function (result) {
-            res.send(result);
-        });
-    });
-
-    app.get('/api/oldAttendance', (req, res) => {
-        sheetsapi.getOldAttendanceData().then(function (result) {
-            res.send(result);
-        });
-    });
 
     // starting the server
     app.listen(port, () => {
