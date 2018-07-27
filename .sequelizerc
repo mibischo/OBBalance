@@ -1,0 +1,8 @@
+const path = require('path');
+
+module.exports = {
+  "config": path.resolve('./OBBalance.server/config', 'config.json'),
+  "models-path": path.resolve('./OBBalance.server/models'),
+  "seeders-path": path.resolve('./OBBalance.server/seeders'),
+  "migrations-path": path.resolve('./OBBalance.server/migrations')
+};
