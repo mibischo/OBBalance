@@ -2,11 +2,12 @@
     font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif;
     margin-left: 32px;
     margin-top: 48px;
+    color: #fff;
 }
 
 .mat-header-row {
     position: sticky;
-    top: 0;
+    top: 50px;
     background-color: inherit;
 }
 
