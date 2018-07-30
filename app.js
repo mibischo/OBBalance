@@ -28,13 +28,13 @@ if (cluster.isMaster && process.env.NODE_ENV === 'production') {
     sheetsapi.getSheetData();
     setInterval(function () {
         sheetsapi.getSheetData();
-    }, 10000*60*10);
+    }, 1000*60);
 } else {
     if (process.env.NODE_ENV !== 'production') {
         sheetsapi.getSheetData();
         setInterval(function () {
             sheetsapi.getSheetData();
-        }, 10000*60*10);
+        }, 1000*60);
     } else {
         console.log('Worker %d running!', cluster.worker.id);
     }
