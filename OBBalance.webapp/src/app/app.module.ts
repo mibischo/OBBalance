@@ -4,6 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ScrollbarModule } from 'ngx-scrollbar';
 
 import { AppComponent } from './app.component';
 import { MyMaterialModule } from './utils/material.module';
@@ -31,6 +32,7 @@ import { PlayerAttendanceComponent } from './attendance/player-attendance/player
     MyMaterialModule,
     FlexLayoutModule,
     NgxSpinnerModule,
+    ScrollbarModule,
 
     AppRoutingModule
   ],

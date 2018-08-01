@@ -1,37 +1,22 @@
 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "large" color = "#fff" ype = "ball-beat"></ngx-spinner>
-<mat-sidenav-container class="sidenav-container" fullscreen>
-  
-  <mat-sidenav class="sidenav" #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
-    <div class="sidenav-toolbar">
-        <h1>Oblivion Boost</h1>
-    </div>
-    <mat-list class="navigation">
-      <mat-list-item>
-        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/balance/current" >Balance</a>
-      </mat-list-item>
-      <mat-list-item>
-        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/balance/old" >Old Balance</a>
-      </mat-list-item>
-      <mat-list-item>
-        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/attendance/current">Attendance</a>
-      </mat-list-item>
-      <mat-list-item>
-        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/attendance/old">Old Attendance</a>
-      </mat-list-item>
-    </mat-list>
-  </mat-sidenav>
 
-  <mat-toolbar class="mat-elevation-z6" color="primary">
-    <div class="sidenave-button" [ngStyle]="{'display' : (screenWidth > 840) ? 'none' : 'block'}">
-      <button mat-icon-button (click)="sidenav.open()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <h1>{{title}}</h1>
-  </mat-toolbar>
+<div fxLayout="row" style="background-color: #131720; background-image: url('../assets/banner.png'); background-repeat: no-repeat; background-position: center; height: 197px;">
+</div>
+<mat-toolbar class="mat-elevation-z6 toolbar" color="primary">
+  <mat-list class="header-navigation">
+    <mat-list-item>
+      <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/balance/current" >Balance</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/balance/old" >Old Balance</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/attendance/current">Attendance</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/attendance/old">Old Attendance</a>
+    </mat-list-item>
+  </mat-list>
+</mat-toolbar>
 
-  <div class="main-content">
-    <router-outlet></router-outlet>
-  </div>
-
-</mat-sidenav-container>
+<router-outlet></router-outlet>

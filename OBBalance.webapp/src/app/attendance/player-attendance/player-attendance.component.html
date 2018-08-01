@@ -4,44 +4,46 @@
   </div>
 </div>
 <div fxLayout="row">
-  <div fxFlex class="mat-elevation-z2" style="margin: 16px 8px 16px 16px;">    
-    <mat-table fxFlex="100" #table [dataSource]="_dataSource">
-        
-      <!--- Note that these columns can be defined in any order.
-      The actual rendered columns are set as a property on the row definition" -->
-  
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef class="name-column"> <h2>Name</h2> </mat-header-cell>
-        <mat-cell *matCellDef="let row" class="name-column"> {{row.name}} </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="pot">
-        <mat-header-cell *matHeaderCellDef class="pot-column"> <h2>Pot</h2> </mat-header-cell>
-        <mat-cell *matCellDef="let row" class="pot-column"> {{row.pot | number:'':'en' }} </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="boosters">
-          <mat-header-cell *matHeaderCellDef class="boosters-column"> <h2>Boosters</h2> </mat-header-cell>
-          <mat-cell *matCellDef="let row" class="boosters-column"> {{row.boosters}} </mat-cell>
+  <div fxFlex class="mat-elevation-z2" style="margin: 16px 8px 16px 16px;">   
+    <ng-scrollbar>
+      <mat-table fxFlex="100" #table [dataSource]="_dataSource">
+          
+        <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+    
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef class="name-column"> <h2>Name</h2> </mat-header-cell>
+          <mat-cell *matCellDef="let row" class="name-column"> {{row.name}} </mat-cell>
         </ng-container>
-  
-      <ng-container matColumnDef="quater">
-        <mat-header-cell *matHeaderCellDef class="quater-column"> <h2>25%</h2> </mat-header-cell>
-        <mat-cell *matCellDef="let row" class="quater-column"> {{row.quater | number:'':'en'}} </mat-cell>
-      </ng-container>
+    
+        <ng-container matColumnDef="pot">
+          <mat-header-cell *matHeaderCellDef class="pot-column"> <h2>Pot</h2> </mat-header-cell>
+          <mat-cell *matCellDef="let row" class="pot-column"> {{row.pot | number:'':'en' }} </mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="boosters">
+            <mat-header-cell *matHeaderCellDef class="boosters-column"> <h2>Boosters</h2> </mat-header-cell>
+            <mat-cell *matCellDef="let row" class="boosters-column"> {{row.boosters}} </mat-cell>
+          </ng-container>
+    
+        <ng-container matColumnDef="quater">
+          <mat-header-cell *matHeaderCellDef class="quater-column"> <h2>25%</h2> </mat-header-cell>
+          <mat-cell *matCellDef="let row" class="quater-column"> {{row.quater | number:'':'en'}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="raiderCut">
-        <mat-header-cell *matHeaderCellDef class="raiderCut-column"> <h2>Raider Cut</h2> </mat-header-cell>
-        <mat-cell *matCellDef="let row" class="raiderCut-column"> {{row.raiderCut | number:'':'en'}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="raiderCut">
+          <mat-header-cell *matHeaderCellDef class="raiderCut-column"> <h2>Raider Cut</h2> </mat-header-cell>
+          <mat-cell *matCellDef="let row" class="raiderCut-column"> {{row.raiderCut | number:'':'en'}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="leaderCut">
-        <mat-header-cell *matHeaderCellDef class="leaderCut-column"> <h2>Leader Cut</h2> </mat-header-cell>
-        <mat-cell *matCellDef="let row" class="leaderCut-column"> {{row.leaderCut | number:'':'en'}} </mat-cell>
-      </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+        <ng-container matColumnDef="leaderCut">
+          <mat-header-cell *matHeaderCellDef class="leaderCut-column"> <h2>Leader Cut</h2> </mat-header-cell>
+          <mat-cell *matCellDef="let row" class="leaderCut-column"> {{row.leaderCut | number:'':'en'}} </mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </ng-scrollbar>
   </div>
 </div>

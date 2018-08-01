@@ -25,9 +25,9 @@ let currentSheet = { // old sheet for dev
 
 let oldSheet = {
     spreadsheetId: '1kVsThQ-IrJp0tmWyyBK892dInmUKTmn9gHr2AbzzV1g',
-    balanceSheet: '18-7_Balance!B5:J700',
-    raidSheet: '18-7_OTB!ZU2:ZY415',
-    attendanceSheet: '18-7_OTB!B4:ZR700'
+    balanceSheet: 'Old_Balance!B5:J700',
+    raidSheet: 'Old_ATD!ZT2:ZX4155',
+    attendanceSheet: 'Old_ATD!B4:ZQ700'
 }
 
 function authenticate() {

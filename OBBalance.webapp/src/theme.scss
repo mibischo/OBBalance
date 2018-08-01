@@ -1,0 +1,41 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$md-oblivonboost: (
+    50 : #e0efff,
+    100 : #b3d7fe,
+    200 : #80bdfe,
+    300 : #4da3fe,
+    400 : #268ffd,
+    500 : #007bfd,
+    600 : #0073fd,
+    700 : #0068fc,
+    800 : #005efc,
+    900 : #004bfc,
+    A100 : #ffffff,
+    A200 : #eff3ff,
+    A400 : #bcccff,
+    A700 : #a2b8ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$primary: mat-palette($md-oblivonboost, 500);
+$accent:  mat-palette($mat-light-blue, 600, 100, 800);
+$warn:    mat-palette($mat-red, 600);
+$theme: mat-dark-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);    
