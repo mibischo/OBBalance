@@ -92,17 +92,17 @@ function getBalance(sheetConfig) {
         //     }
         // );
         console.log(sheetConfig.balanceSheet);
+        let data = [];
 
         sheets.spreadsheets.values.get({
                 auth: jwtClient,
                 spreadsheetId: sheetConfig.spreadsheetId,
-                range: sheetConfig.balanceSheet
+                range: sheetConfig.balanceSheet,
             }, 
             function (err, response) {
                 if (err) {
                     console.log('The API returned an error: ' + err);
                 } else {
-                    let data = [];
                     response.data.values.map((row) => {
                         if (row[0] != '') {
                             let player = {
@@ -110,16 +110,46 @@ function getBalance(sheetConfig) {
                                 balance: row[1] !== "" ? parseInt(row[1].replace(/,/g, '')) : 0,
                                 paid: row[2] !== "" ? parseInt(row[2].replace(/,/g, '')) : 0,
                                 owed: row[3] !== "" ? parseInt(row[3].replace(/,/g, '')) : 0,
+                                token: row[4] !== undefined ? row[4] : '',
                                 extra: row[7] !== undefined ? parseInt(row[7].replace(/,/g, '')) : 0,
                                 info: row[8] !== undefined ? row[8] : ''
                             };
                             data.push(player);
                         }
                     });
-                    resolve(data);
+
+                    sheets.spreadsheets.values.get({
+                            auth: jwtClient,
+                            spreadsheetId: sheetConfig.spreadsheetId,
+                            range: sheetConfig.balanceSheet,
+                            valueRenderOption: 'FORMULA'
+                        }, 
+                        function (err, response) {
+                            if (err) {
+                                console.log('The API returned an error: ' + err);
+                            } else {
+                                for (let i = 0; i < data.length; i++) {
+                                    let row = response.data.values[i];
+                                    let player = data[i];
+            
+                                    if (row.length >= 8) {
+                                        let extra_formula = isNaN(row[7]) ? row[7].replace('=','') : row[7].toString();
+                                        player['extra_formula'] = extra_formula != player['extra'] ? extra_formula : '';
+                                    } else {
+                                        player['extra_formula'] = '';
+                                    }
+
+                                    data[i] = player;
+                                }
+                            }
+            
+                            resolve(data);
+                        }
+                    );
                 }
             }
         );
+        
     });
 }
 
