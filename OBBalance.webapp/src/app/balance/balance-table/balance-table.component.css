@@ -24,6 +24,10 @@
     flex: 0 0 150px;
 }
 
+.token-column {
+    flex: 0 0 200px;
+}
+
 .extra-column {
     flex: 0 0 250px;
 }

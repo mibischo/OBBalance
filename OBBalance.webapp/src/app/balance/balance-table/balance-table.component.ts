@@ -19,7 +19,7 @@ export class BalanceTableComponent implements OnInit {
 
   data: any[];
   _dataSource = new MatTableDataSource([]);
-  displayedColumns = ['name', 'balance', 'paid', 'owed', 'extra', 'info'];
+  displayedColumns = ['name', 'balance', 'paid', 'owed', 'token', 'extra', 'info'];
 
   constructor() { }
 

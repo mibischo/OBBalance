@@ -30,9 +30,14 @@
       <mat-cell *matCellDef="let row" class="owed-column"> {{row.owed | number:'':'en'}} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="token">
+      <mat-header-cell *matHeaderCellDef class="token-column"> <h2>Token</h2> </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="token-column"> {{row.token }} </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="extra">
       <mat-header-cell *matHeaderCellDef class="extra-column"> <h2>Deduct/Extra/Paid</h2> </mat-header-cell>
-      <mat-cell *matCellDef="let row" class="extra-column"> {{row.extra | number:'':'en'}} </mat-cell>
+      <mat-cell *matCellDef="let row" class="extra-column"> {{row.extra | number:'':'en'}} &nbsp; <mat-icon *ngIf="row.extra_formula !== ''" matTooltip="{{row.extra_formula}}">info</mat-icon></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="info">
